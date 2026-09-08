@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Calistenia — Treino</title>
+<style>
+:root{color-scheme:light dark;--bg:#0d0f14;--card:#171a22;--card2:#11141a;--text:#f5f7fa;--muted:#9ca6b5;--line:#2a303b;--accent:#7aa2ff;--accentText:#0c1220;--ok:#35c46a;--danger:#ff6b6b}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);padding:18px 16px 34px}
+.wrap{max-width:720px;margin:auto}
+h1{font-size:24px;margin:0 0 4px}.muted{color:var(--muted)}.small{font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.metric{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:12px}.metric .value{font-size:20px;font-weight:800;margin-top:4px}
+select,button{width:100%;font:inherit;border-radius:14px;border:1px solid var(--line);padding:14px}
+select{background:var(--card);color:var(--text);font-size:16px}button{min-height:50px;font-weight:800;cursor:pointer}
+.primary{background:var(--accent);color:var(--accentText);border:none}.secondary{background:transparent;color:var(--text)}
+.success{background:var(--ok);color:#07130b;border:none}.danger{background:transparent;color:var(--danger);border-color:var(--danger)}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1 1 160px}
+.progressTrack{height:9px;background:var(--card2);border-radius:99px;overflow:hidden;margin:10px 0 18px}.progressFill{height:100%;background:var(--accent);width:0}
+.bigExercise{font-size:30px;font-weight:900;line-height:1.1;margin:8px 0 14px}.timer{font-size:52px;font-weight:900;text-align:center;margin:10px 0 14px}
+.hidden{display:none!important}.center{text-align:center}.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--card2);border:1px solid var(--line);font-size:12px;color:var(--muted)}
+.seriesList{display:grid;gap:8px;margin-top:12px}.seriesItem{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}.seriesItem.done{opacity:.55}
+.notice{font-size:13px;color:var(--muted);margin-top:14px;line-height:1.45}
+@media (prefers-color-scheme:light){:root{--bg:#f6f7f9;--card:#fff;--card2:#f8fafc;--text:#111827;--muted:#667085;--line:#e5e7eb;--accent:#5b7cfa;--accentText:white}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section id="home">
+<h1>Calistenia</h1>
+<p class="muted">Objetivo: emagrecer + ganhar força, com prioridade nas pull-ups.</p>
+<div class="card">
+<label class="small muted" for="day">Treino</label>
+<select id="day">
+<option value="0">Dia 1 — PULL ⭐ Prioridade</option>
+<option value="1">Dia 2 — PUSH + Pernas</option>
+<option value="2">Dia 4 — PULL</option>
+<option value="3">Dia 5 — Full Body</option>
+</select>
+<div class="row" style="margin-top:14px"><button id="startBtn" class="primary">▶ Iniciar treino</button><button id="resumeBtn" class="secondary hidden">Continuar treino</button></div>
+</div>
+<div class="card">
+<h3>O teu ponto de partida</h3>
+<div class="grid2">
+<div class="metric"><div class="small muted">Pull-ups</div><div class="value">2</div></div>
+<div class="metric"><div class="small muted">Flexões</div><div class="value">40</div></div>
+<div class="metric"><div class="small muted">Dips</div><div class="value">0</div></div>
+<div class="metric"><div class="small muted">Prancha</div><div class="value">~2 min</div></div>
+</div>
+</div>
+</section>
+
+<section id="workout" class="hidden">
+<div class="row"><button id="backBtn" class="secondary">← Sair</button><button id="resetBtn" class="danger">Reiniciar treino</button></div>
+<div class="card">
+<div class="small muted" id="dayLabel"></div>
+<div id="progressText" class="small muted" style="margin-top:6px"></div>
+<div class="progressTrack"><div id="progressFill" class="progressFill"></div></div>
+<div class="badge">Exercício</div>
+<div id="exerciseName" class="bigExercise"></div>
+<div class="grid2">
+<div class="metric"><div class="small muted">Séries × reps</div><div id="reps" class="value"></div></div>
+<div class="metric"><div class="small muted">Descanso</div><div id="rest" class="value"></div></div>
+</div>
+<p id="note" class="notice"></p>
+<div id="seriesList" class="seriesList"></div>
+<div class="row" style="margin-top:14px"><button id="finishExerciseBtn" class="primary">✓ Terminei a série</button></div>
+</div>
+</section>
+
+<section id="restScreen" class="hidden">
+<div class="card center">
+<div class="badge">Descanso</div><h2 style="margin-top:12px">Próxima série</h2>
+<div id="timer" class="timer">01:30</div><p id="nextHint" class="muted"></p>
+<div class="row"><button id="minusBtn" class="secondary">−15 s</button><button id="plusBtn" class="secondary">+15 s</button></div>
+<div class="row" style="margin-top:10px"><button id="skipRestBtn" class="primary">Saltar descanso</button></div>
+</div>
+</section>
+
+<section id="doneScreen" class="hidden">
+<div class="card center"><div style="font-size:44px">💪</div><h2>Treino concluído!</h2><p class="muted">Boa. O progresso deste treino fica guardado neste navegador.</p><button id="finishBtn" class="success">Voltar ao início</button></div>
+</section>
+
+<p class="notice">⚠️ Se o tornozelo ou a zona do quisto doer durante um exercício, interrompe esse exercício.</p>
+</div>
+
+<script>
+(() => {
+const plans=[
+{name:'Dia 1 — PULL ⭐ Prioridade',ex:[
+['Pull-ups',5,'1–2',180,'Repetições limpas. Não vás à falha nas primeiras séries.'],
+['Pull-ups negativas',3,'3–5',120,'Desce devagar durante 5–8 segundos.'],
+['Australian pull-ups',4,'8–12',90,'Corpo firme e peito em direção à barra.'],
+['Scapular pull-ups',3,'8–12',75,'Braços esticados; movimenta as omoplatas.'],
+['Dead hang',3,'20–40 s',60,'Agarra a barra e mantém posição controlada.'],
+['Elevação de joelhos pendurado',3,'8–12',75,'Evita balançar o corpo.']]},
+{name:'Dia 2 — PUSH + Pernas',ex:[
+['Flexões sobre os punhos',4,'12–20',90,'Mantém o corpo alinhado. Para se houver dor no quisto.'],
+['Flexões com pés elevados',3,'6–12',105,'Só se a posição for confortável para a mão/punho.'],
+['Dips assistidas',4,'5–8',120,'Usa apoio dos pés ou banda; movimento controlado.'],
+['Agachamentos',4,'15–20',90,'Só se o tornozelo estiver confortável.'],
+['Bulgarian split squat',3,'8–12 / perna',90,'Não faças se provocar dor ou instabilidade no tornozelo.'],
+['Prancha',3,'45–60 s',60,'Abdómen contraído e corpo alinhado.']]},
+{name:'Dia 4 — PULL',ex:[
+['Pull-ups',6,'1',150,'Uma repetição limpa por série.'],
+['Pull-ups negativas',3,'3',120,'Descida lenta e controlada.'],
+['Australian pull-ups',4,'10–15',90,'Aproxima o peito da barra.'],
+['Chin-ups assistidas/negativas',3,'3–5',120,'Palmas viradas para ti; controla a descida.'],
+['Dead hang',3,'30–45 s',75,'Mantém uma pega segura.'],
+['Elevação de joelhos',3,'10–15',75,'Sem balanço excessivo.']]},
+{name:'Dia 5 — Full Body',ex:[
+['Pull-ups',4,'1–2',150,'Prioridade à técnica.'],
+['Flexões nos punhos',4,'10–15',90,'Corpo alinhado; interrompe se houver dor.'],
+['Dips assistidas',4,'5–8',120,'Usa assistência suficiente para controlar o movimento.'],
+['Bulgarian split squat',3,'10 / perna',90,'Só se o tornozelo estiver sem dor e estável.'],
+['Agachamentos',3,'15',90,'Movimento confortável para o tornozelo.'],
+['Prancha',3,'45–60 s',60,'Mantém tensão abdominal.']]}
+];
+const $=id=>document.getElementById(id);
+const screens=['home','workout','restScreen','doneScreen'];
+function show(id){screens.forEach(s=>$(s).classList.toggle('hidden',s!==id))}
+let state={day:0,ex:0,seriesDone:0,active:false}; let timerId=null,remaining=0;
+function save(){try{localStorage.setItem('cal_state_v2',JSON.stringify(state))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem('cal_state_v2'));if(s)state={...state,...s}}catch(e){};$('resumeBtn').classList.toggle('hidden',!state.active)}
+function fmt(sec){sec=Math.max(0,Math.round(sec));return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
+function renderWorkout(){
+ const plan=plans[state.day],ex=plan.ex[state.ex]; if(!ex){completeWorkout();return}
+ $('dayLabel').textContent=plan.name;$('progressText').textContent=`Exercício ${state.ex+1} de ${plan.ex.length}`;$('progressFill').style.width=((state.ex/plan.ex.length)*100)+'%';
+ $('exerciseName').textContent=ex[0];$('reps').textContent=`${ex[1]} × ${ex[2]}`;$('rest').textContent=fmt(ex[3]);$('note').textContent=ex[4];
+ const list=$('seriesList');list.innerHTML='';for(let i=0;i<ex[1];i++){const item=document.createElement('div');item.className='seriesItem'+(i<state.seriesDone?' done':'');item.innerHTML=`<span>Série ${i+1}</span><span>${i<state.seriesDone?'✓ feita':'por fazer'}</span>`;list.appendChild(item)}
+ $('finishExerciseBtn').textContent=state.seriesDone<ex[1]?`✓ Terminei a série ${state.seriesDone+1}`:'→ Próximo exercício';show('workout');
+}
+function startRest(seconds){remaining=seconds;$('timer').textContent=fmt(remaining);const ex=plans[state.day].ex[state.ex];$('nextHint').textContent=state.seriesDone<ex[1]?`Depois: série ${state.seriesDone+1} de ${ex[0]}`:'Depois: próximo exercício';show('restScreen');clearInterval(timerId);timerId=setInterval(()=>{remaining--;$('timer').textContent=fmt(remaining);if(remaining<=0){clearInterval(timerId);renderWorkout()}},1000)}
+function completeWorkout(){clearInterval(timerId);state.active=false;save();$('resumeBtn').classList.add('hidden');show('doneScreen')}
+$('startBtn').addEventListener('click',()=>{state={day:Number($('day').value),ex:0,seriesDone:0,active:true};save();renderWorkout()});
+$('resumeBtn').addEventListener('click',renderWorkout);
+$('backBtn').addEventListener('click',()=>{clearInterval(timerId);save();show('home');$('resumeBtn').classList.toggle('hidden',!state.active)});
+$('resetBtn').addEventListener('click',()=>{state={day:state.day,ex:0,seriesDone:0,active:true};save();renderWorkout()});
+$('finishExerciseBtn').addEventListener('click',()=>{const ex=plans[state.day].ex[state.ex];if(state.seriesDone<ex[1]){state.seriesDone++;save();if(state.seriesDone<ex[1])startRest(ex[3]);else renderWorkout()}else{state.ex++;state.seriesDone=0;save();renderWorkout()}});
+$('skipRestBtn').addEventListener('click',()=>{clearInterval(timerId);renderWorkout()});
+$('minusBtn').addEventListener('click',()=>{remaining=Math.max(0,remaining-15);$('timer').textContent=fmt(remaining)});
+$('plusBtn').addEventListener('click',()=>{remaining+=15;$('timer').textContent=fmt(remaining)});
+$('finishBtn').addEventListener('click',()=>show('home'));
+load();$('day').value=String(state.day||0);show('home');
+})();
+</script>
+</body>
+</html>
