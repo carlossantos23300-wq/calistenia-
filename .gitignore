@@ -3,3 +3,7 @@ dist/
 *.tar.gz
 *.zip
 node_modules/
+.sites-cli/
+.sites-runtime/
+sites-cli.tgz
+sites-package-info.json
