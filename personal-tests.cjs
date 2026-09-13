@@ -1,4 +1,10 @@
 const assert=require('node:assert/strict'),fs=require('fs'),vm=require('vm'),F=require('./feature-core.js');
+const plans=require('./workout-plans.js');
+assert.equal(F.filterPlans(plans,{query:'gluteos',group:'Casa',level:'Iniciante',minutes:'30'}).length,1);
+assert.equal(F.filterPlans(plans,{group:'Ginásio',minutes:'20'}).length,0);
+assert.equal(F.filterPlans(plans,{sort:'short'})[0].id,'mobilidade');
+assert.equal(F.filterPlans(plans).length,12);
+const original={id:'one',name:'Teste',items:[{id:'Pushups',sets:2}]},copy=F.copyWorkout(original,[original],'two');copy.items[0].sets=4;assert.equal(original.items[0].sets,2);assert.notEqual(copy.id,original.id);assert.equal(F.copyWorkout(original,[copy],'three').name,'Teste — cópia 2');
 const history=[{date:'2026-09-07T12:00:00Z',duration:120,sets:[{},{}]},{date:'2026-09-07T18:00:00Z',duration:60,sets:[{}]},{date:'2026-09-13T12:00:00Z',duration:180,sets:[{}]},{date:'2026-09-06T12:00:00Z',duration:500,sets:[]}];
 assert.deepEqual(F.weekSummary(history,new Date(2026,8,13,12)),{workouts:3,sets:4,minutes:6,days:2});
 assert.deepEqual(F.weekSummary([],new Date(2026,0,1)),{workouts:0,sets:0,minutes:0,days:0});
