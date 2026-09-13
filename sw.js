@@ -1,6 +1,6 @@
-const CACHE = 'calistenia-app-library-v4';
+const CACHE = 'calistenia-app-library-v5';
 const ROOT = new URL('./', self.location.href).href;
-const ASSETS = ['index.html', 'manifest.json', 'icon.png', 'icon-192.png', 'library.css?v=4', 'features.css?v=4', 'library-core.js?v=4', 'library.js?v=4', 'workout-plans.js', 'exercise-data.js?v=4', 'account-sync.js?v=4', 'feature-core.js', 'features.js?v=4', 'meals.js'].map(path => new URL(path, ROOT).href);
+const ASSETS = ['index.html', 'manifest.json', 'icon.png', 'icon-192.png', 'library.css?v=5', 'features.css?v=5', 'library-core.js?v=5', 'library.js?v=5', 'workout-plans.js', 'exercise-data.js?v=5', 'account-sync.js?v=5', 'feature-core.js?v=5', 'features.js?v=5', 'meals.js', 'personal.js?v=5'].map(path => new URL(path, ROOT).href);
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
 });

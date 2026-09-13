@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict'),fs=require('fs'),vm=require('vm'),F=require('./feature-core.js');
+const history=[{date:'2026-09-07T12:00:00Z',duration:120,sets:[{},{}]},{date:'2026-09-07T18:00:00Z',duration:60,sets:[{}]},{date:'2026-09-13T12:00:00Z',duration:180,sets:[{}]},{date:'2026-09-06T12:00:00Z',duration:500,sets:[]}];
+assert.deepEqual(F.weekSummary(history,new Date(2026,8,13,12)),{workouts:3,sets:4,minutes:6,days:2});
+assert.deepEqual(F.weekSummary([],new Date(2026,0,1)),{workouts:0,sets:0,minutes:0,days:0});
+(async()=>{const {validState}=await import('./validate-state.mjs');const state={goal:3,measurements:[{date:'2026-09-13',weight:85,waist:null,hip:null,chest:null}],shopping:[{id:'a',name:'Maçãs',quantity:'6 unidades',done:true}],notes:[{id:'workout',text:'Boa sessão.'}]};
+assert(validState('cal_personal',state));for(const bad of [{...state,goal:0},{...state,goal:8},{...state,measurements:[{...state.measurements[0],date:'2026-02-31'}]},{...state,measurements:[{...state.measurements[0],weight:-1}]},{...state,measurements:[{...state.measurements[0],weight:null}]},{...state,measurements:[state.measurements[0],state.measurements[0]]},{...state,shopping:[{id:'a',name:'',quantity:'',done:false}]},{...state,notes:[{id:'a',text:'x'.repeat(1001)}]}])assert(!validState('cal_personal',bad));
+const server=(await import('./server.mjs')).default;let stored;
+const DB={prepare(){return {bind(...args){return {async run(){stored=JSON.parse(args[2]);return {meta:{changes:1}}},async all(){return {results:[{state_key:'cal_personal',value_json:JSON.stringify(stored),revision:1}]}}}}}}};
+const request=new Request('https://app.test/api/state',{method:'PUT',headers:{origin:'https://app.test','content-type':'application/json','oai-authenticated-user-id':'me'},body:JSON.stringify({user:'me',key:'cal_personal',value:state,revision:0})});assert.equal((await server.fetch(request,{DB})).status,200);const r=await server.fetch(new Request('https://app.test/api/state',{headers:{'oai-authenticated-user-id':'me'}}),{DB});assert.deepEqual((await r.json()).values.cal_personal,state);
+new vm.Script(fs.readFileSync('personal.js','utf8'));
+const html=fs.readFileSync('index.html','utf8');assert(html.indexOf('personal.js')<html.indexOf('features.js'));
+console.log('PASS: weekly boundaries, unique training days, valid measurements, input limits, account storage and script loading.');
+})().catch(e=>{console.error(e);process.exitCode=1});

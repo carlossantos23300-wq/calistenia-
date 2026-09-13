@@ -1,5 +1,5 @@
 (() => {
-const keys=['cal_library_workouts','cal_library_favorites','cal_library_draft','cal_calendar','cal_progress'];
+const keys=['cal_library_workouts','cal_library_favorites','cal_library_draft','cal_calendar','cal_progress','cal_personal'];
 let values={},revisions={},pending={},user=null,busy=false,blocked=false,storageOK=true;
 const status=message=>{const el=document.getElementById('syncStatus');if(el)el.textContent=message};
 const localRead=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}};
