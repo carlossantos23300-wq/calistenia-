@@ -1,5 +1,5 @@
 (() => {
-const keys=['cal_library_workouts','cal_library_favorites','cal_library_draft','cal_calendar','cal_progress','cal_personal','cal_active_run','cal_meal_swaps'];
+const keys=['cal_library_workouts','cal_library_favorites','cal_library_draft','cal_calendar','cal_progress','cal_personal','cal_active_run','cal_meal_swaps','cal_tools'];
 let values={},revisions={},pending={},user=null,busy=false,blocked=false,storageOK=true;
 const status=message=>{const el=document.getElementById('syncStatus');if(el)el.textContent=message};
 const localRead=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}};
@@ -19,6 +19,6 @@ async function init(){
  localWrite('cal_cloud_user',user);persist();if(!blocked){status('Conta ligada');flush()}
  }catch{user=previous;if(user){const cache=localRead('cal_cloud_cache_'+user,{});values=cache.values||{};revisions=cache.revisions||{};pending=cache.pending||{}}else{for(const key of keys){const v=localRead(key,undefined);if(v!==undefined)values[key]=v}}status('Modo local. Liga-te à internet para sincronizar a conta.');}
 }
-window.AccountSync={init,read:(k,f)=>values[k]??f,write(k,v){if(!keys.includes(k))return localWrite(k,v);values[k]=structuredClone(v);pending[k]=true;localWrite(k,v);persist();if(!blocked){status(user?'A guardar na conta…':'Guardado neste dispositivo. A conta ainda não está ligada.');flush()}return storageOK||navigator.onLine},exportData:()=>({values,revisions,pending}),async useCloud(){const r=await fetch('/api/state',{cache:'no-store'});if(!r.ok)throw Error();const remote=await r.json();values=remote.values;revisions=remote.revisions;pending={};blocked=false;user=remote.user;for(const k of keys)localWrite(k,values[k]??(k==='cal_library_draft'?{}:[]));persist();location.reload()}};
+window.AccountSync={init,async syncNow(){const deadline=Date.now()+30000;while(busy&&Date.now()<deadline)await new Promise(r=>setTimeout(r,100));if(busy||blocked||!user)throw Error("Sync unavailable");await flush();if(Object.keys(pending).length)throw Error("Pending changes")},read:(k,f)=>values[k]??f,write(k,v){if(!keys.includes(k))return localWrite(k,v);values[k]=structuredClone(v);pending[k]=true;localWrite(k,v);persist();if(!blocked){status(user?'A guardar na conta…':'Guardado neste dispositivo. A conta ainda não está ligada.');flush()}return storageOK||navigator.onLine},exportData:()=>({values,revisions,pending}),async useCloud(){const r=await fetch('/api/state',{cache:'no-store'});if(!r.ok)throw Error();const remote=await r.json();values=remote.values;revisions=remote.revisions;pending={};blocked=false;user=remote.user;for(const k of keys){if(values[k]===undefined){try{localStorage.removeItem(k)}catch{}}else localWrite(k,values[k])}persist();location.reload()}};
 window.addEventListener('online',()=>{if(user)flush();else location.reload()});
 })();

@@ -1,6 +1,6 @@
-const CACHE = 'calistenia-app-library-v8';
+const CACHE = 'calistenia-app-library-v9';
 const ROOT = new URL('./', self.location.href).href;
-const ASSETS = ['index.html', 'manifest.json', 'icon.png', 'icon-192.png', 'library.css?v=8', 'features.css?v=8', 'library-core.js?v=8', 'library.js?v=8', 'workout-plans.js', 'exercise-data.js?v=8', 'account-sync.js?v=8', 'feature-core.js?v=8', 'features.js?v=8', 'meals.js', 'personal.js?v=8', 'look.css?v=8', 'training-core.js?v=8', 'training-runner.js?v=8', 'daily-tools.js?v=8'].map(path => new URL(path, ROOT).href);
+const ASSETS = ['index.html', 'manifest.json', 'icon.png', 'icon-192.png', 'library.css?v=9', 'features.css?v=9', 'library-core.js?v=9', 'library.js?v=9', 'workout-plans.js', 'exercise-data.js?v=9', 'account-sync.js?v=9', 'feature-core.js?v=9', 'features.js?v=9', 'meals.js', 'personal.js?v=9', 'look.css?v=9', 'training-core.js?v=9', 'training-runner.js?v=9', 'daily-tools.js?v=9','plus-core.js?v=9','recipes.js?v=9','state-validator.js?v=9','video-data.js?v=9','execution-media.js?v=9','plus-tools.js?v=9'].map(path => new URL(path, ROOT).href);
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
 });
@@ -11,7 +11,7 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
-  if (!url.href.startsWith(ROOT)) return;
+  if(url.href.startsWith('https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/')){event.respondWith(caches.open('calistenia-offline-images').then(async cache=>(await cache.match(request))||fetch(request)));return}if (!url.href.startsWith(ROOT)) return;
   if (request.mode === 'navigate') {
     event.respondWith(fetch(request).catch(() => caches.match(new URL('index.html', ROOT).href)));
     return;
@@ -20,3 +20,5 @@ self.addEventListener('fetch', event => {
     event.respondWith(caches.match(request).then(cached => cached || fetch(request)));
   }
 });
+
+self.addEventListener('message',event=>{if(event.data?.type!=='CACHE_WORKOUT_IMAGES'||!Array.isArray(event.data.urls))return;event.waitUntil((async()=>{const cache=await caches.open('calistenia-offline-images');let saved=0;for(const url of [...new Set(event.data.urls)].slice(0,120)){if(typeof url!=='string'||!url.startsWith('https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/'))continue;try{const r=await fetch(url,{mode:'cors'});if(r.ok){await cache.put(url,r);saved++}}catch{}}event.ports[0]?.postMessage({saved})})())});

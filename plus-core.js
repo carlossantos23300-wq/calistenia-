@@ -1,0 +1,12 @@
+(function(root){
+const defaults=()=>({equipment:[],learn:[],notes:[],activities:[],discomfort:[],goals:[],steps:[],versions:[],partnerHistory:[],food:{exclude:[],pantry:[],prices:[],prep:[]}});
+const normalize=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+function shorten(workout){return {...structuredClone(workout),name:(workout.name+' · curto').slice(0,60),items:workout.items.slice(0,4).map(i=>({...i,sets:Math.min(i.sets,2)}))}}
+function circuit(items){const out=[];for(let round=0;round<Math.max(...items.map(i=>i.sets));round++)for(const i of items)if(i.sets>round)out.push({...i,sets:1});return out}
+function recipeAllowed(recipe,exclude){return !exclude.some(x=>recipe.ingredients.some(i=>normalize(i.name).includes(normalize(x))))}
+function recipeCost(recipe,portions,prices){const parts=recipe.ingredients.map(i=>{const p=prices.find(p=>normalize(p.name)===normalize(i.name));return p?i.amount*portions/recipe.servings*p.price:null});return {total:parts.reduce((n,v)=>n+(v||0),0),complete:parts.every(v=>v!==null)}}
+function shoppingSection(name){const n=normalize(name);if(/fruta|maca|pera|banana|laranja|legume|tomate|espinafre|brocolo|cenoura|cebola|alface|courgette|pepino/.test(n))return 'Fruta e legumes';if(/frango|peru|peixe|ovo|atum|tofu|sardinha|salmao|carne/.test(n))return 'Proteínas';if(/iogurte|skyr|leite|queijo/.test(n))return 'Laticínios';if(/arroz|massa|aveia|pao|batata|feijao|grao|lentilha/.test(n))return 'Cereais e leguminosas';return 'Outros'}
+function planDates(days,now=new Date()){const start=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12);start.setDate(start.getDate()+((8-start.getDay())%7||7));return [...new Set(days)].sort((a,b)=>a-b).map(d=>{const date=new Date(start);date.setDate(date.getDate()+d);return [date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-')})}
+function monthly(history,month){const rows=history.filter(h=>{const d=new Date(h.date);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')===month});return {workouts:rows.length,sets:rows.reduce((n,h)=>n+h.sets.length,0),minutes:Math.round(rows.reduce((n,h)=>n+h.duration,0)/60)}}
+const api={defaults,normalize,shorten,circuit,recipeAllowed,recipeCost,shoppingSection,planDates,monthly};if(typeof module!=='undefined')module.exports=api;else root.PlusCore=api;
+})(globalThis);

@@ -9,7 +9,8 @@ for(const e of data)e.pt=translations[e.id];
 fs.writeFileSync('exercise-data.js','window.EXERCISES='+JSON.stringify(data)+';\n');
 const output=path.resolve(__dirname,'dist');if(path.dirname(output)!==__dirname||path.basename(output)!=='dist')throw Error('Unsafe build output');
 fs.mkdirSync(path.join(output,'client'),{recursive:true});fs.mkdirSync(path.join(output,'server'),{recursive:true});fs.mkdirSync(path.join(output,'.openai'),{recursive:true});
-const files=['index.html','library.css','features.css','look.css','library-core.js','library.js','workout-plans.js','exercise-data.js','account-sync.js','feature-core.js','features.js','personal.js','training-core.js','training-runner.js','daily-tools.js','meals.js','manifest.json','sw.js','icon.png','icon-192.png','ATTRIBUTION.md'];
+fs.writeFileSync('state-validator.js',fs.readFileSync('validate-state.mjs','utf8').replace('export function validState','function validState')+'\nwindow.validState=validState;\n');
+const files=['index.html','library.css','features.css','look.css','library-core.js','library.js','workout-plans.js','exercise-data.js','account-sync.js','feature-core.js','features.js','personal.js','training-core.js','training-runner.js','daily-tools.js','meals.js','manifest.json','sw.js','icon.png','icon-192.png','ATTRIBUTION.md','plus-core.js','recipes.js','state-validator.js','video-data.js','execution-media.js','plus-tools.js'];
 for(const f of files){if(f.endsWith('.js'))new vm.Script(fs.readFileSync(f,'utf8'),{filename:f});fs.copyFileSync(f,path.join(output,'client',f));if(fs.existsSync(path.join(output,f)))fs.unlinkSync(path.join(output,f));}
 fs.copyFileSync('server.mjs',path.join(output,'server/index.js'));fs.copyFileSync('validate-state.mjs',path.join(output,'server/validate-state.mjs'));fs.copyFileSync('.openai/hosting.json',path.join(output,'.openai/hosting.json'));
 fs.cpSync('drizzle',path.join(output,'.openai/drizzle'),{recursive:true});
