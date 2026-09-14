@@ -4,7 +4,7 @@
   "type": "commonjs",
   "scripts": {
     "build": "node build-app.cjs",
-    "test": "node tests.cjs && node features-tests.cjs && node personal-tests.cjs",
+    "test": "node tests.cjs && node features-tests.cjs && node personal-tests.cjs && node training-tests.cjs && node runner-flow-tests.cjs",
     "dev": "node dev-server.cjs",
     "db:generate": "drizzle-kit generate"
   },
