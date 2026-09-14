@@ -20,3 +20,21 @@ dialog{background:#172922;border-color:#48604f;border-radius:24px;box-shadow:0 3
 .video-lessons{display:grid;gap:16px}.video-lessons a{padding:15px;border:1px solid var(--line);border-radius:12px;font-size:14px}.resume-banner{border-color:var(--blue);display:flex;justify-content:space-between;align-items:center;gap:18px}.resume-banner h3{margin-bottom:6px}.resume-banner p{margin:0;font-size:13px;color:var(--muted)}.today-event{padding:12px 0;border-bottom:1px solid var(--line);margin-bottom:16px}.today-event p{font-size:12px;color:var(--muted);margin:6px 0}.table-scroll{overflow:auto}.drag-handle{touch-action:none;cursor:grab}.selected-row.dragging{outline:2px dashed var(--blue);opacity:.7}.selected-row-header{flex-wrap:wrap}.selected-row-header strong{min-width:120px}#todayGoal progress{width:100%;accent-color:var(--blue)}#todayMeals{margin-bottom:12px}#todayPanel details>summary{cursor:pointer}#mealCards select{font-size:12px;margin-top:8px}#intervalClock{font-variant-numeric:tabular-nums}#pauseRun{margin-top:12px}@media(max-width:800px){.view-switch{grid-template-columns:repeat(6,minmax(0,1fr))}.view-switch .chip{font-size:9px}.resume-banner{align-items:start;flex-direction:column}.resume-banner .saved-actions{width:100%}}@media(min-width:801px) and (max-width:1100px){.view-switch .chip{padding:11px 9px;font-size:12px}}
 
 html[data-theme=light]{--bg:#eef3ee;--panel:#ffffff;--surface:#e5eee5;--line:#b8cbbd;--text:#172e23;--muted:#4f6758;--blue:#276b40;--lime:#785f23;color-scheme:light}html[data-theme=light] .heading{background:linear-gradient(110deg,#d4e8d6,#eff6ed);border-color:var(--line)}html[data-theme=light] .heading .sub,html[data-theme=light] .catalog-stat>span{color:var(--muted)}html[data-theme=light] .view-switch,html[data-theme=light] .builder,html[data-theme=light] dialog,html[data-theme=light] .plan-card,html[data-theme=light] .metric,html[data-theme=light] .plan-tip,html[data-theme=light] .calendar-day.today,html[data-theme=light] .measure-plot{background:var(--panel);border-color:var(--line)}html[data-theme=light] input,html[data-theme=light] select,html[data-theme=light] textarea,html[data-theme=light] .builder .empty-selection{background:#f6faf5;color:var(--text);border-color:var(--line)}html[data-theme=light] .primary,html[data-theme=light] .view-switch .chip.active,html[data-theme=light] .mobile-builder,html[data-theme=light] .toast{background:var(--blue);color:white}html[data-theme=light] .primary:hover{background:#205a35}html[data-theme=light] .secondary:hover{background:var(--surface)}html[data-theme=light] .instructions{color:var(--text)}html[data-theme=light] .detail-meta span{background:var(--surface)}
+
+/* Let catalogue content shrink inside a narrow grid track. */
+.workspace>*,.search-wrap,.filter-grid>*,.tool-tabs>*{min-width:0}
+.search-wrap input{flex:1;width:0;min-width:0}.search-wrap>span,.search-wrap kbd{flex:none}
+@media(max-width:800px){
+ .workspace,.workspace.wide-panel{grid-template-columns:minmax(0,1fr)}
+ .quick-filters{max-width:100%;margin-right:0;padding-right:0;overscroll-behavior-x:contain}
+ .tool-tabs{max-width:100%}.tool-tabs .inline-check{flex:1 1 150px;white-space:normal;margin-right:0}
+ .view-switch{grid-template-columns:repeat(6,minmax(0,1fr));max-width:none;width:auto;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));padding:6px 3px}
+ .view-switch .chip{min-width:0;white-space:normal;overflow-wrap:anywhere;font-size:10px;line-height:1.2;padding:8px 1px;min-height:54px}
+ .view-switch .chip span{margin:0}
+ .mobile-builder{display:none;bottom:calc(var(--mobile-nav-height,68px) + 18px + env(safe-area-inset-bottom));left:16px;right:16px;width:auto;min-height:44px;padding:10px 14px}
+ body:has(#catalogPanel:not(.hidden)) .mobile-builder:not(.hidden){display:flex}
+ main{padding-bottom:calc(var(--mobile-nav-height,68px) + var(--mobile-builder-height,0px) + 44px + env(safe-area-inset-bottom))}
+ html{scroll-padding-bottom:calc(var(--mobile-nav-height,68px) + var(--mobile-builder-height,0px) + 44px + env(safe-area-inset-bottom))}
+ .toast{bottom:calc(var(--mobile-nav-height,68px) + var(--mobile-builder-height,0px) + 28px + env(safe-area-inset-bottom))}
+ .results-head{flex-wrap:wrap;gap:8px}.selected-row-header strong{overflow-wrap:anywhere}
+}

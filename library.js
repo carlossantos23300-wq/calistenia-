@@ -27,7 +27,7 @@ function renderCatalog(){
  imageFallback($('exerciseGrid'));
 }
 function renderSelection(){
- $('selectionCount').textContent=selected.length;$('mobileCount').textContent=selected.length;$('savedCount').textContent=saved.length;
+ $('mobileBuilder').classList.toggle('hidden',!selected.length);$('selectionCount').textContent=selected.length;$('mobileCount').textContent=selected.length;$('savedCount').textContent=saved.length;
  for(const id of ['startWorkout','saveWorkout','clearSelection'])$(id).disabled=!selected.length;
  $('selectionList').innerHTML=selected.length?selected.map((s,i)=>`<div class="selected-row" data-order="${i}"><div class="selected-row-header"><button class="icon-button drag-handle" data-drag="${i}" aria-label="Arrastar ${esc(byId.get(s.id).title)}" type="button">↕</button><strong>${i+1}. ${esc(byId.get(s.id).title)}</strong><button class="icon-button" data-up="${i}" aria-label="Mover para cima" ${i===0?'disabled':''}>↑</button><button class="icon-button" data-down="${i}" aria-label="Mover para baixo" ${i===selected.length-1?'disabled':''}>↓</button><button class="icon-button" data-remove="${esc(s.id)}" aria-label="Remover ${esc(byId.get(s.id).title)}">×</button></div><div class="set-inputs"><label>Séries<input type="number" min="1" max="20" value="${s.sets}" data-field="sets" data-index="${i}"></label><label>${s.unit==='s'?'Segundos':'Repetições'}<input type="number" min="1" max="300" value="${s.reps}" data-field="reps" data-index="${i}"></label><label>Descanso (s)<input type="number" min="0" max="600" value="${s.rest}" data-field="rest" data-index="${i}"></label></div><button class="text-button" data-swap="${i}">Trocar exercício</button> · <button class="text-button" data-unit="${i}">${s.unit==='s'?'Usar repetições':'Usar duração em segundos'}</button></div>`).join(''):'<div class="empty-selection"><span>＋</span><b>Começa com um exercício</b>Escolhe na biblioteca para montar o teu treino.</div>';
 }
@@ -66,5 +66,7 @@ $('randomPlan').onclick=()=>{const plans=FeatureCore.filterPlans(WORKOUT_PLANS,{
 trainingRunner=createTrainingRunner({$,read,write,esc,byId,imageURL,imageFallback,renderDetail,toast,getHistory:features.getHistory,saveRun:features.saveRun,switchPanel:features.switchPanel});
 $('startWorkout').onclick=()=>{const items=$('circuitMode').checked?PlusCore.circuit(selected):selected;if(items.length>60){toast('O circuito tem mais de 60 etapas. Reduz as séries ou os exercícios.');return}trainingRunner.start($('workoutName').value||'O meu treino',items,scheduledId,$('partnerName').value.trim())};
 renderPlans();renderCatalog();renderSelection();features.switchPanel('today');
+if('ResizeObserver' in window){const nav=document.querySelector('.view-switch'),button=$('mobileBuilder');const measureDock=()=>{document.documentElement.style.setProperty('--mobile-nav-height',nav.getBoundingClientRect().height+'px');document.documentElement.style.setProperty('--mobile-builder-height',button.getBoundingClientRect().height+'px')};const dockObserver=new ResizeObserver(measureDock);dockObserver.observe(nav);dockObserver.observe(button);measureDock()}
+
 if('serviceWorker' in navigator&&['http:','https:'].includes(location.protocol))navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();

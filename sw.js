@@ -1,6 +1,6 @@
-const CACHE = 'calistenia-app-library-v9';
+const CACHE = 'calistenia-app-library-v10';
 const ROOT = new URL('./', self.location.href).href;
-const ASSETS = ['index.html', 'manifest.json', 'icon.png', 'icon-192.png', 'library.css?v=9', 'features.css?v=9', 'library-core.js?v=9', 'library.js?v=9', 'workout-plans.js', 'exercise-data.js?v=9', 'account-sync.js?v=9', 'feature-core.js?v=9', 'features.js?v=9', 'meals.js', 'personal.js?v=9', 'look.css?v=9', 'training-core.js?v=9', 'training-runner.js?v=9', 'daily-tools.js?v=9','plus-core.js?v=9','recipes.js?v=9','state-validator.js?v=9','video-data.js?v=9','execution-media.js?v=9','plus-tools.js?v=9'].map(path => new URL(path, ROOT).href);
+const ASSETS = ['index.html', 'manifest.json', 'icon.png', 'icon-192.png', 'library.css?v=10', 'features.css?v=10', 'library-core.js?v=10', 'library.js?v=10', 'workout-plans.js', 'exercise-data.js?v=10', 'account-sync.js?v=10', 'feature-core.js?v=10', 'features.js?v=10', 'meals.js', 'personal.js?v=10', 'look.css?v=10', 'training-core.js?v=10', 'training-runner.js?v=10', 'daily-tools.js?v=10','plus-core.js?v=10','recipes.js?v=10','state-validator.js?v=10','video-data.js?v=10','execution-media.js?v=10','plus-tools.js?v=10'].map(path => new URL(path, ROOT).href);
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
 });
