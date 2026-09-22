@@ -15,3 +15,9 @@ main{max-width:1500px;margin:0 0 0 220px;padding:34px 40px 60px;width:calc(100% 
 html[data-theme=light] .next-session{background:#232832;color:#fff}html[data-theme=light] .next-session .primary{background:#ff8754}html[data-theme=light] .view-switch .chip.active{color:#21170f}html[data-theme=light] .next-session h3{color:#fff}html[data-theme=light] .week-day.is-complete{background:#ffdfce;color:#60270e}html[data-theme=light] .plan-card-bottom button:hover{color:#fff}html[data-theme=light] .primary,html[data-theme=light] .add-button{color:#fff}
 @media(max-width:800px){html[data-theme=light] .view-switch .chip.active{color:var(--accent)}}
 @media(prefers-reduced-motion:no-preference){.workspace>section:not(.hidden){animation:surface-in .18s ease-out}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Give the full exercise demonstration enough height to remain legible. */
+#plansGrid .plan-visual{height:360px;background:#202329;display:flex;align-items:center;justify-content:center}
+#plansGrid .plan-visual img{display:block;width:100%;height:100%;padding:0;object-fit:contain;mix-blend-mode:normal}
+#plansGrid .plan-visual>span{left:12px;bottom:12px}
+@media(max-width:800px){#plansGrid .plan-visual{height:clamp(320px,65vw,460px)}}
