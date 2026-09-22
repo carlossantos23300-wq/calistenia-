@@ -21,3 +21,6 @@ html[data-theme=light] .next-session{background:#232832;color:#fff}html[data-the
 #plansGrid .plan-visual img{display:block;width:100%;height:100%;padding:0;object-fit:contain;mix-blend-mode:normal}
 #plansGrid .plan-visual>span{left:12px;bottom:12px}
 @media(max-width:800px){#plansGrid .plan-visual{height:clamp(320px,65vw,460px)}}
+.exercise-card .photo{height:340px;aspect-ratio:auto;background:#202329}
+.exercise-card .photo img{display:block;width:100%;height:100%;object-fit:contain;padding:0;mix-blend-mode:normal}
+@media(max-width:800px){.exercise-card .photo{height:clamp(280px,80vw,400px)}}
