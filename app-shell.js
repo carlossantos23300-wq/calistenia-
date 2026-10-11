@@ -34,11 +34,26 @@ window.initAppShell=function({switchPanel}){
  const updateCategories=()=>quick.querySelectorAll('button').forEach(b=>{const active=b.dataset.category===$('planGroup').value;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
  $('planGroup').addEventListener('change',updateCategories);$('clearPlanFilters').addEventListener('click',updateCategories);updateCategories();
  $('showProfile').onclick=()=>switchPanel('profile');$('showTools').onclick=()=>switchPanel('tools');
+ // Keep everyday actions close to the next session.
+ const shortcuts=document.createElement('nav');shortcuts.className='home-shortcuts';shortcuts.setAttribute('aria-label','Atalhos do início');
+ const icons={saved:'<rect x="5" y="4" width="14" height="17" rx="3"/><path d="M9 4V2h6v2M9 10h6M9 15h4"/>',catalog:'<path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/>',quick:'<path d="M13 2L4 14h7l-1 8 10-12h-7l1-8Z"/>'};
+ for(const [action,title,caption] of [['saved','Os meus treinos','Abre uma sessão guardada'],['catalog','Biblioteca','Encontra o teu exercício'],['quick','Treino rápido','Escolhe o tempo disponível']]){const b=document.createElement('button');b.type='button';b.className='home-shortcut';b.innerHTML=`<span class="shortcut-icon"><svg viewBox="0 0 24 24" aria-hidden="true">${icons[action]}</svg></span><span><strong>${title}</strong><small>${caption}</small></span><span class="shortcut-arrow" aria-hidden="true">↗</span>`;b.onclick=()=>{if(action==='saved')$('savedNav').click();else if(action==='catalog'){switchPanel('catalog');$('search').focus({preventScroll:true});}else{switchPanel('tools');const quick=$('quickForm').closest('details');quick.open=true;quick.scrollIntoView({behavior:'smooth',block:'start'});}};shortcuts.append(b);}
+ document.querySelector('.today-heading').after(shortcuts);
+ // Move the original filter nodes so all existing handlers remain attached.
+ const advanced=document.createElement('details');advanced.className='catalog-advanced';const advancedLabel=document.createElement('summary');advancedLabel.textContent='Filtros e opções';advanced.append(advancedLabel);
+ const filterGrid=$('catalogPanel').querySelector('.filter-grid'),quiet=$('quietOnly').closest('label'),quietNote=quiet.nextElementSibling,tools=$('catalogPanel').querySelector('.tool-tabs');
+ filterGrid.before(advanced);advanced.append(filterGrid,quiet,quietNote,tools);
+ const advancedInputs=['muscle','equipment','level','quietOnly','ownedOnly','travelOnly','videoOnly'];
+ const updateFilters=()=>{const active=advancedInputs.filter(id=>$(id).type==='checkbox'?$(id).checked:!!$(id).value).length;advancedLabel.textContent=active?`Filtros e opções · ${active} ${active===1?'ativo':'ativos'}`:'Filtros e opções';advanced.classList.toggle('has-filters',active>0);};
+ for(const id of advancedInputs)$(id).addEventListener('change',updateFilters);$('resetFilters').addEventListener('click',()=>queueMicrotask(updateFilters));updateFilters();
  // The builder is available on demand instead of competing with discovery.
  const toggle=document.createElement('button');toggle.id='studioBuilderToggle';toggle.className='secondary';toggle.textContent='Montar ou editar o meu treino';toggle.type='button';
+ toggle.setAttribute('aria-controls','builder');
  $('trainingNav').after(toggle);
- toggle.onclick=()=>{document.body.classList.add('builder-expanded');$('builder').scrollIntoView({behavior:'smooth',block:'start'});};
- for(const id of ['mobileBuilder','reviewNextSession'])$(id)?.addEventListener('click',()=>{document.body.classList.add('builder-expanded');toggle.setAttribute('aria-expanded','true');});
- document.addEventListener('click',e=>{if(e.target.closest('[data-use-plan],[data-calendar-open],#useQuickWorkout,#loadWarmup,#loadCooldown')){document.body.classList.add('builder-expanded');toggle.setAttribute('aria-expanded','true');}} ,true);
- window.addEventListener('studio-panel',e=>{const panel=e.detail;document.body.dataset.screen=panel;toggle.classList.toggle('hidden',!['plans','catalog'].includes(panel));const titles={today:'O teu espaço',plans:'Treinar',catalog:'Biblioteca',calendar:'Calendário',tools:'Ferramentas',progress:'Evolução',nutrition:'Alimentação',profile:'Perfil'};$('screenTitle').textContent=titles[panel]||'Treinar';});
+ const updateBuilder=()=>{const count=Number($('selectionCount').textContent)||0;toggle.textContent=count?`Ver o meu treino · ${count} ${count===1?'exercício':'exercícios'} →`:'Criar o meu treino +';toggle.classList.toggle('has-items',count>0);toggle.setAttribute('aria-expanded',String((count>0||document.body.classList.contains('builder-expanded'))&&['plans','catalog'].includes(document.body.dataset.screen)));};
+ toggle.onclick=()=>{document.body.classList.add('builder-expanded');updateBuilder();$('builder').scrollIntoView({behavior:'smooth',block:'start'});};
+ new MutationObserver(updateBuilder).observe($('selectionCount'),{childList:true,characterData:true,subtree:true});updateBuilder();
+ if('IntersectionObserver' in window)new IntersectionObserver(entries=>{document.body.classList.toggle('builder-in-view',entries[0].isIntersecting);},{rootMargin:'0px 0px -100px 0px'}).observe($('builder'));
+ document.addEventListener('click',e=>{if(e.target.closest('[data-use-plan],[data-calendar-open],#useQuickWorkout,#loadWarmup,#loadCooldown,#mobileBuilder,#reviewNextSession')){document.body.classList.add('builder-expanded');queueMicrotask(updateBuilder);}} ,true);
+ window.addEventListener('studio-panel',e=>{const panel=e.detail;document.body.dataset.screen=panel;toggle.classList.toggle('hidden',!['plans','catalog'].includes(panel));const titles={today:'O teu espaço',plans:'Treinar',catalog:'Biblioteca',calendar:'Calendário',tools:'Ferramentas',progress:'Evolução',nutrition:'Alimentação',profile:'Perfil'};$('screenTitle').textContent=titles[panel]||'Treinar';queueMicrotask(updateBuilder);});
 };
