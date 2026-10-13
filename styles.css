@@ -1448,6 +1448,14 @@ dialog{border-radius:28px;padding:26px}
 #planEditorDialog .builder-actions{grid-template-columns:1fr 1fr;gap:10px}
 #planEditorDialog .builder-actions button{font-size:14px;padding:0 10px}
 #plansGrid .plan-card::after{content:none}
+/* Animated exercise demonstration: the two positions cross-fade */
+.execution-flip{position:relative;margin:14px 0;border-radius:20px;overflow:hidden;background:var(--surface)}
+.flip-frames{position:relative;aspect-ratio:3/2;cursor:pointer}
+.flip-frames img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .22s ease}
+.flip-frames img.is-shown{opacity:1}
+.execution-flip figcaption{position:absolute;left:10px;right:10px;bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;pointer-events:none}
+.flip-step,.flip-toggle{display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border:0;border-radius:99px;background:#000000b3;color:#fff;font-size:12px;font-weight:700;pointer-events:auto}
+.flip-toggle[hidden],.execution-flip.is-empty figcaption{display:none}
 @media(max-width:800px){
  .top{padding:calc(12px + env(safe-area-inset-top)) 18px 6px;gap:8px}
  .brand{font-size:13px;letter-spacing:.08em;gap:10px}
