@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "calistenia",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["dev-server.cjs", "4273"],
+      "port": 4273
+    }
+  ]
+}
