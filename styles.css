@@ -1456,6 +1456,52 @@ dialog{border-radius:28px;padding:26px}
 .execution-flip figcaption{position:absolute;left:10px;right:10px;bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;pointer-events:none}
 .flip-step,.flip-toggle{display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border:0;border-radius:99px;background:#000000b3;color:#fff;font-size:12px;font-weight:700;pointer-events:auto}
 .flip-toggle[hidden],.execution-flip.is-empty figcaption{display:none}
+/* Coach suggestion */
+.coach-tip{background:rgba(var(--accent-rgb),.1);border-radius:18px;padding:16px 18px;margin:0 0 16px;text-align:left}
+.coach-tip p{margin:0 0 12px;font-size:15px;line-height:1.45}
+.coach-tip strong{display:block;margin-bottom:6px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
+.coach-actions{display:flex;align-items:center;gap:8px}
+.coach-actions .primary{min-height:44px;padding:0 20px;font-size:15px}
+.coach-actions .text-button{min-height:44px;padding:0 12px}
+/* Workout summary */
+.session-finished{position:relative;padding:28px 4px 8px;overflow:hidden}
+.finished-mark{color:var(--button-ink)}
+.session-finished h2{font-size:30px;letter-spacing:-.02em}
+.finished-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:24px 0 16px}
+.finished-stats p{background:var(--panel);border:0;border-radius:20px;padding:18px 6px}
+.finished-stats strong{font-size:36px;font-weight:800;line-height:1.1;color:var(--accent-ink)}
+.finished-stats span{font-size:12px}
+.finished-next{background:var(--panel);border-radius:20px;padding:16px 18px;margin:16px 0;text-align:left}
+.finished-next h3{font-size:15px;margin:0 0 8px}
+.finished-next ul{list-style:none;margin:0;padding:0}
+.finished-next li{padding:8px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.finished-next li strong{display:block;color:var(--text);font-weight:600}
+.session-finished>.secondary{width:100%;margin-top:8px}
+.session-finished>.primary{margin-top:10px}
+.confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.confetti i{position:absolute;top:-14px;left:calc(var(--x)*1%);width:9px;height:14px;border-radius:3px;background:var(--accent);opacity:0;animation:confetti-fall 1.9s cubic-bezier(.2,.6,.4,1) var(--delay) 1 both}
+.confetti i:nth-child(3n){width:7px;height:7px;border-radius:50%;background:var(--text)}
+.confetti i:nth-child(4n){height:9px;background:rgba(var(--accent-rgb),.55)}
+@keyframes confetti-fall{0%{opacity:0;transform:translateY(0) rotate(0)}12%{opacity:1}100%{opacity:0;transform:translateY(calc(var(--fall)*1vh)) rotate(var(--spin))}}
+html[data-motion=quiet] .confetti{display:none}
+/* Weekly goal ring and exercise trend line */
+.goal-ring{display:flex;align-items:center;gap:16px}
+.goal-ring svg{flex:none;width:96px;height:96px}
+.goal-ring circle{fill:none;stroke-width:11}
+.ring-track{stroke:var(--surface)}
+.ring-value{stroke:var(--accent);stroke-linecap:round;transform:rotate(-90deg);transform-origin:60px 60px}
+.goal-ring text{fill:var(--text);font-size:34px;font-weight:800}
+.goal-ring text.ring-goal{fill:var(--muted);font-size:13px;font-weight:600}
+.goal-ring p{margin:0;font-size:14px;line-height:1.45;color:var(--muted)}
+.goal-ring p strong{display:block;margin-bottom:2px;font-size:16px;color:var(--text)}
+.goal-ring p span{display:block;margin-top:6px;font-weight:600;color:var(--accent-ink)}
+.trend-chart{display:block;width:100%;height:auto;margin:10px 0 4px;overflow:visible}
+.trend-area{fill:rgba(var(--accent-rgb),.14)}
+.trend-line{fill:none;stroke:var(--accent-ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.trend-dot{fill:var(--panel);stroke:var(--accent-ink);stroke-width:2.5}
+.trend-dot.is-last{fill:var(--accent-ink)}
+.trend-chart text{fill:var(--muted);font-size:11px}
+.trend-chart text.trend-value{fill:var(--text);font-size:12px;font-weight:700}
 @media(max-width:800px){
  .top{padding:calc(12px + env(safe-area-inset-top)) 18px 6px;gap:8px}
  .brand{font-size:13px;letter-spacing:.08em;gap:10px}
