@@ -277,7 +277,7 @@ html[data-font=large] button,html[data-font=large] label,html[data-font=large] s
  .personal-grid{grid-template-columns:1fr;gap:24px;padding-top:24px}
  .personal-grid .personal-card:first-child{order:2}
  .personal-grid .personal-card{padding:0}
- .view-switch,html[data-theme=light] .view-switch{left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));top:auto;width:calc(100% - 28px);grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--line);border-radius:44px;padding:8px;background:var(--panel)!important;backdrop-filter:blur(14px);box-shadow:0 8px 35px #0003;gap:1px}
+ .view-switch,html[data-theme=light] .view-switch{left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));top:auto;width:calc(100% - 28px);grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:44px;padding:8px;background:var(--panel)!important;backdrop-filter:blur(14px);box-shadow:0 8px 35px #0003;gap:1px}
  .view-switch .chip{min-height:57px;font-size:9px;border-radius:32px;padding:9px 1px;gap:5px;justify-content:center;align-items:center;flex-direction:column}
  .view-switch .chip.active,html[data-theme=light] .view-switch .chip.active{background:var(--accent);color:var(--button-ink);box-shadow:none}
  .view-switch .chip.active .nav-icon{filter:none}
