@@ -27,7 +27,9 @@ $('exportAccount').onclick=()=>{const blob=new Blob([JSON.stringify(AccountSync.
 $('resolveSync').onclick=async()=>{if(!confirm('Recarregar os dados da conta? Exporta primeiro uma cópia se tiveres alterações locais por guardar.'))return;try{await AccountSync.useCloud()}catch{toast('Não foi possível ligar à conta.')}};
 const personal=initPersonal({$,read,write,esc,toast,getHistory:()=>history});
 const daily=initDailyTools({$,read,write,esc,toast,byId,load:app.load,switchPanel,getHistory:()=>history,getCalendar:()=>calendar,getMeals,getRunner:app.getRunner});
-const plus=initPlusTools({...app,switchPanel,getHistory:()=>history,getCalendar:()=>calendar,schedule(entries){calendar.push(...entries);write('cal_calendar',calendar);renderCalendar();daily.refresh()}});
+const schedule=entries=>{calendar.push(...entries);write('cal_calendar',calendar);renderCalendar();daily.refresh()};
+const plus=initPlusTools({...app,switchPanel,getHistory:()=>history,getCalendar:()=>calendar,schedule});
+initWelcome({...app,switchPanel,schedule,getHistory:()=>history,getCalendar:()=>calendar});
 atlas=initTrainingAtlas({...app,switchPanel,getHistory:()=>history});
 return {switchPanel,saveRun,openSwap,getHistory:()=>history};
 };

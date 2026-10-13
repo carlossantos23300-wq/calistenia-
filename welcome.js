@@ -1,0 +1,17 @@
+window.initWelcome=function({$,read,write,toast,schedule,getHistory,getCalendar,getSaved,switchPanel}){
+// First-run assistant: a few answers become a week of sessions in the calendar.
+const group=(name,legend,options,initial)=>`<fieldset class="choice-group"><legend>${legend}</legend>${options.map(([value,label])=>`<label><input type="radio" name="${name}" value="${value}" ${value===initial?'checked':''}><span>${label}</span></label>`).join('')}</fieldset>`;
+const dialog=document.createElement('dialog');dialog.id='welcomeDialog';dialog.setAttribute('aria-labelledby','welcomeTitle');
+dialog.innerHTML=`<div class="dialog-top"><div><p class="eyebrow">VAMOS COMEÇAR</p><h2 id="welcomeTitle">A tua primeira semana.</h2></div><button class="close-dialog icon-button" aria-label="Fechar assistente">×</button></div><p class="style-intro">Responde a quatro perguntas e a app marca os treinos no teu calendário. Podes mudar tudo depois.</p><form id="welcomeForm">${group('welcomeGoal','O que queres alcançar?',[['strength','Ganhar força'],['pullup','Fazer a primeira elevação'],['mobility','Mexer-me mais']],'strength')}${group('welcomePlace','Com que material?',[['Casa','Sem material'],['Barra','Barra fixa'],['Halteres','Halteres'],['Ginásio','Ginásio']],'Casa')}${group('welcomeLevel','Qual é o teu nível?',[['Iniciante','A começar'],['Intermédio','Já treino com regularidade']],'Iniciante')}${group('welcomeDays','Quantos dias por semana?',[['2','2 dias'],['3','3 dias'],['4','4 dias'],['5','5 dias']],'3')}<p id="welcomeNote" class="source-note" role="status"></p><button class="primary">Montar a minha semana</button><button type="button" id="skipWelcome" class="text-button">Agora não</button></form>`;
+document.body.append(dialog);
+const form=$('welcomeForm'),pick=name=>form.elements[name].value,done=()=>{try{localStorage.setItem('cal_ui_welcome','1')}catch{}};
+form.onchange=()=>{$('welcomeNote').textContent=pick('welcomeGoal')==='pullup'?'Para a primeira elevação precisas de uma barra fixa; os treinos vão usá-la.':''};
+form.onsubmit=e=>{e.preventDefault();const days=Number(pick('welcomeDays')),booked=getCalendar(),entries=PlusCore.starterWeek(WORKOUT_PLANS,{goal:pick('welcomeGoal'),place:pick('welcomePlace'),level:pick('welcomeLevel'),days}).filter(p=>!booked.some(b=>b.date===p.date&&b.name===p.name)).map(p=>({id:crypto.randomUUID(),...p}));
+ schedule(entries);write('cal_personal',{measurements:[],shopping:[],notes:[],...read('cal_personal',{}),goal:days});for(const name of ['personal-updated','weekly-goal-updated','training-updated'])window.dispatchEvent(new Event(name));
+ dialog.close();switchPanel('today');toast(entries.length?entries.length+' treinos marcados. O primeiro é hoje.':'Esses treinos já estavam no teu calendário.')};
+$('skipWelcome').onclick=()=>dialog.close();dialog.addEventListener('close',done);
+$('profilePanel').insertAdjacentHTML('beforeend','<section class="profile-customize"><span class="eyebrow">ASSISTENTE</span><h3>Uma semana nova em quatro perguntas.</h3><p>Escolhe objetivo, material, nível e dias. A app marca os treinos no calendário.</p><button id="openWelcome" class="secondary">Abrir assistente ↗</button></section>');
+$('openWelcome').onclick=()=>dialog.showModal();
+let seen=false;try{seen=localStorage.getItem('cal_ui_welcome')==='1'}catch{}
+if(!seen&&!getHistory().length&&!getCalendar().length&&!getSaved().length)queueMicrotask(()=>dialog.showModal());
+};

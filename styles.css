@@ -1502,6 +1502,35 @@ html[data-motion=quiet] .confetti{display:none}
 .trend-dot.is-last{fill:var(--accent-ink)}
 .trend-chart text{fill:var(--muted);font-size:11px}
 .trend-chart text.trend-value{fill:var(--text);font-size:12px;font-weight:700}
+/* Workout header options, timed sets and video search */
+.runner-options{display:flex;flex-wrap:wrap;gap:0 16px;margin:0 0 8px}
+.runner-options .inline-check{margin:0;min-height:38px;font-size:13px;color:var(--muted)}
+.set-timer{background:var(--panel);border-radius:20px;padding:16px 18px 18px;margin:0 0 16px;text-align:center}
+.set-phase{margin:0;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.set-timer .runner-reps{margin:8px 0 14px}
+.set-timer .primary{width:100%}
+.execution-media>.video-search{display:flex;align-items:center;justify-content:center;width:100%;margin-top:8px;padding:0 18px;text-decoration:none}
+/* Level and medals */
+.level-line{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:6px 12px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.level-line strong{font-size:14px;font-weight:700;color:var(--accent-ink)}
+.level-line progress{width:100%}
+.level-line span{grid-column:1/-1;font-size:12px;color:var(--muted)}
+#challengeList .level-line{margin:0 0 12px;padding:0 0 14px;border-top:0;border-bottom:1px solid var(--line)}
+.finished-xp strong{display:inline-block;margin-right:8px;padding:4px 10px;border-radius:99px;background:rgba(var(--accent-rgb),.16);color:var(--accent-ink);font-weight:700}
+.session-finished>p.finished-medal{margin:8px 0;font-weight:700;color:var(--accent-ink)}
+/* First-run assistant */
+.choice-group{display:flex;flex-wrap:wrap;gap:8px;min-width:0;margin:0 0 18px;padding:0;border:0}
+.choice-group legend{margin-bottom:10px;padding:0;font-size:15px;font-weight:700;color:var(--text)}
+.choice-group label{position:relative}
+.choice-group input{position:absolute;inset:0;width:100%;height:100%;min-height:0;margin:0;opacity:0;cursor:pointer}
+.choice-group span{display:flex;align-items:center;min-height:46px;padding:0 16px;border-radius:14px;background:var(--surface);font-size:14px;font-weight:600;color:var(--muted)}
+.choice-group input:checked+span{background:var(--accent);color:var(--button-ink)}
+.choice-group input:focus-visible+span{outline:2px solid var(--accent-ink);outline-offset:3px}
+#welcomeForm>.primary{width:100%;margin-top:4px}
+#welcomeForm>.text-button{display:block;width:100%;min-height:48px;margin-top:6px}
+@media(min-width:801px){
+ #welcomeDialog{width:min(560px,calc(100% - 24px))}
+}
 @media(max-width:800px){
  .top{padding:calc(12px + env(safe-area-inset-top)) 18px 6px;gap:8px}
  .brand{font-size:13px;letter-spacing:.08em;gap:10px}
