@@ -32,5 +32,6 @@ const plus=initPlusTools({...app,switchPanel,getHistory:()=>history,getCalendar:
 initWelcome({...app,switchPanel,schedule,getHistory:()=>history,getCalendar:()=>calendar});
 atlas=initTrainingAtlas({...app,switchPanel,getHistory:()=>history});
 initExtras({...app,switchPanel,schedule,getHistory:()=>history,getCalendar:()=>calendar});
+initMotivation({...app,switchPanel,getHistory:()=>history});
 return {switchPanel,saveRun,openSwap,getHistory:()=>history};
 };

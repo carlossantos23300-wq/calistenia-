@@ -1740,7 +1740,7 @@ html[data-preset=sol] .run-big{font-weight:900}
 .extra-home small{display:block;font-size:13px;color:var(--muted)}
 .extra-home button{flex:none;min-height:44px;padding:0 18px}
 .extra-icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;background:var(--surface);font-size:22px}
-.extra-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}
+.extra-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
 .extra-tile{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:132px;padding:16px;border-radius:22px;background:var(--panel);text-align:left;color:var(--text)}
 .extra-tile .extra-icon{margin-bottom:6px}
 .extra-tile strong{font-size:15px;line-height:1.25}
@@ -1822,3 +1822,54 @@ html[data-preset=sol] .run-big{font-weight:900}
  .extra-tile strong{font-size:13.5px;align-self:end}
  .extra-tile small{font-size:11.5px;align-self:start;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 }
+/* Mascot */
+.mascot{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;align-items:center;margin:0 0 16px;padding:0 0 16px;border-bottom:1px solid var(--line)}
+.mascot-figure{width:84px;height:84px;padding:0;border-radius:24px;background:var(--surface)}
+.mascot-svg{display:block;width:100%;height:100%}
+.mascot-figure.is-alive .mascot-svg{animation:mascot-bob 3.2s ease-in-out infinite}
+.mascot-figure.is-bounce .mascot-svg{animation:mascot-jump .5s ease-out 1}
+@keyframes mascot-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes mascot-jump{0%{transform:translateY(0) scale(1)}40%{transform:translateY(-10px) scale(1.05,.95)}100%{transform:none}}
+.mascot-talk strong{display:block;font-size:15px}
+.mascot-talk p{margin:4px 0;font-size:14px;line-height:1.4}
+.mascot-talk small{display:block;font-size:12px;color:var(--muted)}
+.m-body{fill:var(--accent)}
+.m-belly{fill:#ffffff;opacity:.28}
+.m-eye{fill:#1a1d1b}.m-shine{fill:#fff}
+.m-line,.m-mouth-line{fill:none;stroke:#1a1d1b;stroke-width:3;stroke-linecap:round}
+.m-mouth{fill:#1a1d1b}
+.m-cheek{fill:#ff8fa3;opacity:.55}
+.m-leaf{fill:#7fd36b}
+.m-band{fill:#ff6b6b}
+.m-cape{fill:#e2463f}
+.m-crown{fill:#ffd23f;stroke:#c99a00;stroke-width:1}
+.m-aura{fill:rgba(var(--accent-rgb),.22)}
+.m-star{fill:#ffd23f}
+.m-z{font-size:14px;font-weight:800;fill:var(--muted)}.m-z.small{font-size:10px}
+/* Adventure */
+.adventure-map{display:block;width:100%;height:auto;margin:6px 0 4px;border-radius:18px;background:linear-gradient(180deg,rgba(var(--accent-rgb),.08),transparent)}
+.adv-mountain{fill:var(--surface-2)}
+.adv-snow{fill:#ffffffcc}
+.adv-path{fill:none;stroke:var(--muted);stroke-width:2;stroke-dasharray:4 4}
+.adv-flag line{stroke:var(--muted);stroke-width:1.5}
+.adv-flag path{fill:var(--muted)}
+.adv-flag.is-passed line{stroke:var(--accent-ink)}
+.adv-flag.is-passed path{fill:var(--accent-ink)}
+.adv-me{fill:var(--accent);stroke:var(--bg);stroke-width:3}
+.adventure-card .extra-list li{opacity:.6}
+.adventure-card .extra-list li.is-passed{opacity:1}
+.adventure-card h3,.month-card h3,.feel-card h3{margin:4px 0 8px;font-size:20px}
+/* Month and feelings */
+.month-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.month-nav{display:flex;gap:6px}
+.month-nav .icon-button{width:40px;height:40px;border-radius:12px}
+.feel-row{display:flex;gap:6px;overflow-x:auto;padding:4px 0 6px;scrollbar-width:none}
+.feel-row span{position:relative;display:grid;justify-items:center;gap:2px;flex:none;width:42px;padding:6px 0;border-radius:14px;background:var(--surface)}
+.feel-row small{font-size:15px}.feel-row b{font-size:20px}
+.feel-row i{position:absolute;top:-6px;right:-4px;font-size:12px;font-style:normal}
+.secret-title{margin:16px 0 6px;font-size:14px}
+.challenge.is-secret{opacity:.6}
+.share-plan{display:block;margin:6px 0 4px}
+.duel-vs{padding:12px 14px;border-radius:16px;background:rgba(var(--accent-rgb),.12)}
+.duel-options .challenge-option{min-height:0}
+#duelDialog label{display:block;margin:0 0 14px;font-size:14px}
