@@ -26,7 +26,7 @@ $('mealDay').innerHTML=MEAL_WEEK.map((d,i)=>`<option value="${i}">${d.day}</opti
 $('exportAccount').onclick=()=>{const blob=new Blob([JSON.stringify(AccountSync.exportData(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='calistenia-copia.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 $('resolveSync').onclick=async()=>{if(!confirm('Recarregar os dados da conta? Exporta primeiro uma cópia se tiveres alterações locais por guardar.'))return;try{await AccountSync.useCloud()}catch{toast('Não foi possível ligar à conta.')}};
 const personal=initPersonal({$,read,write,esc,toast,getHistory:()=>history});
-const daily=initDailyTools({$,read,write,esc,toast,byId,load:app.load,switchPanel,getHistory:()=>history,getCalendar:()=>calendar,getMeals,getRunner:app.getRunner});
+const daily=initDailyTools({$,read,write,esc,toast,byId,load:app.load,getSaved:app.getSaved,switchPanel,getHistory:()=>history,getCalendar:()=>calendar,getMeals,getRunner:app.getRunner});
 const schedule=entries=>{calendar.push(...entries);write('cal_calendar',calendar);renderCalendar();daily.refresh()};
 const plus=initPlusTools({...app,switchPanel,getHistory:()=>history,getCalendar:()=>calendar,schedule});
 initWelcome({...app,switchPanel,schedule,getHistory:()=>history,getCalendar:()=>calendar});

@@ -1,5 +1,5 @@
 import {validState} from './validate-state.mjs';
-const allowed=new Set(['cal_library_workouts','cal_library_favorites','cal_library_draft','cal_calendar','cal_progress','cal_personal','cal_active_run','cal_meal_swaps','cal_tools']);
+const allowed=new Set(['cal_library_workouts','cal_library_favorites','cal_library_draft','cal_calendar','cal_progress','cal_personal','cal_active_run','cal_meal_swaps','cal_tools','cal_extra']);
 const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','vary':'oai-authenticated-user-id'}});
 export default {async fetch(request,env){
  const url=new URL(request.url);

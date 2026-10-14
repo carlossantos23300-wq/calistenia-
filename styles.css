@@ -1619,3 +1619,80 @@ html[data-motion=quiet] .confetti{display:none}
  #runnerDialog{height:100dvh;max-height:100dvh;border-radius:0;border-top:0}
  .dialog-top h2{font-size:24px}
 }
+/* Before the first set: gear, time, warm-up and how the person feels */
+.run-pre{padding-top:2px}
+.pre-meta{margin:-4px 0 16px;font-size:14px;color:var(--muted)}
+.pre-block{margin:0 0 14px}
+.pre-block>span{display:block;margin-bottom:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pre-gear{margin:0;padding:12px 16px;border-radius:16px;background:var(--panel);font-size:15px;font-weight:600}
+.pre-chips{display:flex;flex-wrap:wrap;gap:8px}
+.pre-chip{min-height:42px;padding:0 16px;border-radius:99px;background:var(--surface);color:var(--muted);font-size:14px;font-weight:600}
+.pre-chip[aria-pressed=true]{background:var(--accent);color:var(--button-ink)}
+.pre-ask{margin:18px 0 10px;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.pre-feel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pre-feel button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:104px;border-radius:22px;background:var(--panel);font-size:15px;font-weight:700;color:var(--text)}
+.pre-feel button b{font-size:34px;line-height:1}
+.pre-feel button:hover{background:var(--surface)}
+.pre-feel button:active{background:var(--accent);color:var(--button-ink)}
+.pre-note{margin-top:10px}
+.run-pre>.run-go{width:100%;min-height:60px;margin-top:8px;font-size:19px}
+/* Set screen additions */
+.run-end{flex:none;font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.run-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.run-head .run-title{min-width:0}
+.run-pain{flex:none;min-height:36px;margin-top:2px;padding:0 12px;border-radius:99px;background:var(--surface);color:var(--muted);font-size:13px;font-weight:600}
+.run-helpers{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.run-helper{min-height:40px;padding:0 16px;border-radius:99px;background:var(--surface);color:var(--text);font-size:14px;font-weight:600}
+.run-target.is-running .run-helper{background:var(--accent);color:var(--button-ink)}
+.run-hint{margin:10px 0 0;font-size:12px;text-align:center;color:var(--muted)}
+.run-flash{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));z-index:5;max-width:calc(100% - 32px);padding:12px 18px;border-radius:16px;background:var(--accent);color:var(--button-ink);font-size:15px;font-weight:700;box-shadow:0 10px 30px #0006;transform:translate(-50%,-140%);opacity:0;pointer-events:none;transition:transform .25s ease,opacity .25s ease}
+.run-flash.is-on{transform:translate(-50%,0);opacity:1}
+/* Rest additions: breathing, water and a note when the rest grew */
+.rest-dial svg{transition:transform 4s ease-in-out}
+.rest-dial.is-breathing[data-phase=in] svg{transform:scale(1.05)}
+.rest-dial.is-breathing[data-phase=out] svg{transform:scale(.95)}
+.rest-dial .breath-cue{position:absolute;left:0;right:0;bottom:24%;margin:0;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.rest-note,.rest-water{margin:-8px 0 14px;font-size:14px;color:var(--muted)}
+.rest-water{color:var(--text);font-weight:600}
+/* Workout settings, pain choices and pocket mode */
+#runSettings fieldset{border:0;border-top:1px solid var(--line);border-radius:0;padding:12px 0 4px;margin:16px 0 0}
+#runSettings legend{padding-right:12px;font-size:15px;font-weight:700;color:var(--text)}
+#runSettings label{font-size:14px!important}
+#runSettings label small,.style-home label small{display:block;margin-top:2px;font-size:12px;color:var(--muted);font-weight:400}
+#runSettings select{width:auto;min-height:44px;padding:8px 12px}
+.run-quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 0}
+.run-quick button[aria-pressed=true]{background:var(--accent);color:var(--button-ink)}
+.pain-actions{display:grid;gap:10px;margin:0 0 16px}
+#painDialog label{display:block;font-size:14px}
+.pocket-view{position:fixed;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;background:#000;color:#5a5f5b;text-align:center;user-select:none}
+.pocket-view[hidden]{display:none}
+.pocket-view p{margin:0}
+#pocketLabel{font-size:22px;font-weight:700;color:#7d837e}
+#pocketClock{font-size:min(28vw,180px);font-weight:800;line-height:1;font-variant-numeric:tabular-nums;color:#8e958f}
+#pocketPhase{font-size:16px;text-transform:uppercase;letter-spacing:.12em}
+.pocket-hint{position:absolute;bottom:calc(24px + env(safe-area-inset-bottom));font-size:13px}
+/* Huge display: numbers readable from a couple of metres */
+#runnerDialog.is-huge .execution-media,#runnerDialog.is-huge .run-last,#runnerDialog.is-huge .coach-tip,#runnerDialog.is-huge .run-hint{display:none}
+#runnerDialog.is-huge .run-big{font-size:clamp(96px,30vw,240px)}
+#runnerDialog.is-huge .rest-dial{width:min(84vw,420px)}
+#runnerDialog.is-huge .rest-dial .run-big{font-size:clamp(72px,20vw,150px)}
+#runnerDialog.is-huge .run-title{font-size:clamp(28px,6vw,44px)}
+@media(orientation:landscape) and (max-height:600px){
+ #runnerDialog.is-huge .run-target{display:grid;grid-template-columns:1fr auto;align-items:center;gap:0 20px;text-align:left}
+ #runnerDialog.is-huge .run-big{font-size:clamp(80px,26vh,200px)}
+}
+/* Workout summary additions */
+.session-finished>.finished-line{margin:6px 0;font-size:14px;color:var(--muted)}
+.finished-line small{font-size:12px}
+.finished-mood{margin:16px 0;padding:14px 16px;border-radius:20px;background:var(--panel)}
+.finished-mood p{margin:0 0 10px;font-size:15px;font-weight:700}
+.finished-mood div{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.finished-mood button{min-height:52px;border-radius:14px;background:var(--surface);font-size:26px;line-height:1}
+.finished-mood button[aria-pressed=true]{background:var(--accent)}
+/* Gentle feedback when pressing and when the workout screen changes */
+@media(prefers-reduced-motion:no-preference){
+ .primary,.secondary,.chip,.pre-chip,.pre-feel button,.run-helper,.stepper button{transition:transform .12s ease,background-color .15s ease}
+ .primary:active,.secondary:active,.chip:active,.pre-chip:active,.pre-feel button:active,.run-helper:active,.stepper button:active{transform:scale(.96)}
+ #runnerContent>*{animation:run-enter .22s ease-out both}
+ @keyframes run-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
