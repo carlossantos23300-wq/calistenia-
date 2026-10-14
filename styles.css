@@ -1422,7 +1422,8 @@ footer{margin-top:36px}
 dialog{border-radius:28px;padding:26px}
 .dialog-top h2{font-size:26px;font-weight:700;letter-spacing:-.02em}
 #styleDialog h2{font-size:30px;letter-spacing:-.03em;line-height:1.1}
-#planContent>[data-use-plan]{position:sticky;bottom:0;width:100%;margin-top:8px;box-shadow:0 -14px 20px var(--bg),0 16px 0 var(--bg)}
+#planContent>.plan-actions{position:sticky;bottom:0;display:grid;grid-template-columns:3fr 2fr;gap:10px;margin-top:8px;padding-top:10px;background:var(--bg);box-shadow:0 -14px 20px var(--bg),0 16px 0 var(--bg)}
+#planContent>.plan-actions button{width:100%;margin:0}
 #planEditorDialog .builder-actions{position:sticky;bottom:0;z-index:2;background:var(--bg);margin:10px 0 0;padding:12px 0;box-shadow:0 -14px 20px var(--bg)}
 .selected-row-header{grid-template-columns:36px minmax(0,1fr) 36px 36px 36px;gap:6px}
 .selected-row-header strong{font-weight:600;font-size:16px}
@@ -1441,10 +1442,6 @@ dialog{border-radius:28px;padding:26px}
 .runner-title{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
 .runner-reps{font-family:inherit;font-size:64px;font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;color:var(--accent-ink)}
 #runnerContent .current-target{border-radius:18px;padding:16px 18px;font-size:17px}
-#runnerContent:has(>#restClock){text-align:center;padding-top:8vh}
-#runnerContent #restClock{font-size:96px;margin:28px 0 40px}
-#runnerContent>#skipTimer,#runnerContent>#pauseRun{display:block;width:100%;margin:0 0 10px}
-#runnerContent>#skipTimer{min-height:58px;font-size:17px}
 #planEditorDialog .builder-actions{grid-template-columns:1fr 1fr;gap:10px}
 #planEditorDialog .builder-actions button{font-size:14px;padding:0 10px}
 #plansGrid .plan-card::after{content:none}
@@ -1502,14 +1499,66 @@ html[data-motion=quiet] .confetti{display:none}
 .trend-dot.is-last{fill:var(--accent-ink)}
 .trend-chart text{fill:var(--muted);font-size:11px}
 .trend-chart text.trend-value{fill:var(--text);font-size:12px;font-weight:700}
-/* Workout header options, timed sets and video search */
-.runner-options{display:flex;flex-wrap:wrap;gap:0 16px;margin:0 0 8px}
-.runner-options .inline-check{margin:0;min-height:38px;font-size:13px;color:var(--muted)}
-.set-timer{background:var(--panel);border-radius:20px;padding:16px 18px 18px;margin:0 0 16px;text-align:center}
+/* Timed-set phase label and video search */
 .set-phase{margin:0;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.set-timer .runner-reps{margin:8px 0 14px}
-.set-timer .primary{width:100%}
 .execution-media>.video-search{display:flex;align-items:center;justify-content:center;width:100%;margin-top:8px;padding:0 18px;text-decoration:none}
+/* Workout screen: one exercise, one big number or clock, one action */
+#runnerDialog .dialog-top{align-items:center;margin-bottom:8px}
+.run-tools{display:flex;align-items:center;gap:8px}
+.run-toggle{position:relative;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--surface);color:var(--text);cursor:pointer}
+.run-toggle input{position:absolute;inset:0;width:100%;height:100%;min-height:0;margin:0;opacity:0;cursor:pointer}
+.run-toggle svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.run-toggle input:not(:checked)+svg{opacity:.45}
+.run-toggle input:checked+svg .off{display:none}
+.run-toggle:has(input:focus-visible){outline:2px solid var(--accent-ink);outline-offset:3px}
+.run-top{display:flex;align-items:center;gap:12px;margin:0 0 8px}
+.run-step{flex:none;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.run-top progress{flex:1;min-width:0;height:6px;margin:0}
+.run-title{margin:0 0 12px;font-size:26px;font-weight:700;line-height:1.15;letter-spacing:-.02em}
+.execution-media.is-compact{margin:0 0 12px}
+.execution-media.is-compact .execution-flip{margin:0}
+.execution-media.is-compact .flip-frames{aspect-ratio:auto;height:22vh}
+.execution-media.is-compact figcaption{display:none}
+.run-target{margin:0 0 12px;padding:16px 18px 18px;border-radius:24px;background:var(--panel);text-align:center}
+.run-big{margin:2px 0 0;font-size:72px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--text)}
+.run-big small{display:block;margin-top:6px;font-size:14px;font-weight:600;letter-spacing:0;color:var(--muted)}
+.run-target .run-go{width:100%;margin-top:16px;min-height:60px;font-size:19px}
+.run-target.is-running .run-big{color:var(--accent-ink)}
+.run-done-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px}
+.run-done-row>span{font-size:14px;color:var(--muted)}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper button{width:48px;height:48px;min-height:48px;border-radius:14px;background:var(--surface);color:var(--text);font-size:24px;font-weight:600;line-height:1}
+#runnerContent .stepper input{width:72px;min-height:48px;padding:0;text-align:center;font-size:22px;font-weight:700}
+.run-last{margin:0 0 6px;font-size:13px;color:var(--muted)}
+.run-partner{margin:8px 0;padding:12px 14px;border:0;border-radius:18px;background:var(--panel)}
+.run-more{margin:4px 0}
+.run-more>summary{min-height:44px;font-weight:600;color:var(--muted);cursor:pointer}
+.run-more label{display:block;margin:10px 0}
+.run-more>.secondary{width:100%;margin:6px 0}
+#runnerContent .runner-actions{grid-template-columns:minmax(0,1fr) auto}
+#runnerContent .runner-actions #completeSet{grid-column:auto}
+#runnerContent .runner-actions #runDetails{padding:0 18px}
+.run-top progress,.session-progress{accent-color:var(--accent)}
+@media(max-height:780px){
+ .execution-media.is-compact .flip-frames{height:17vh}
+ .run-title{font-size:23px;margin-bottom:10px}
+ .run-big{font-size:60px}
+ .run-target{padding:12px 16px 14px}
+ .run-target .run-go{min-height:54px;margin-top:12px}
+}
+/* Rest between sets */
+.rest-view{padding-top:2vh;text-align:center}
+.rest-dial{position:relative;width:min(68vw,260px);margin:10px auto 22px}
+.rest-dial svg{display:block;width:100%;height:auto}
+.rest-dial circle{fill:none;stroke-width:7}
+.rest-dial .run-big{position:absolute;inset:0;display:grid;place-items:center;margin:0;font-size:60px}
+.rest-actions{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin:0 0 14px}
+.rest-actions button{min-height:58px;font-size:17px}
+.rest-next{margin:0 0 6px;padding:16px 18px;border-radius:20px;background:var(--panel);text-align:left}
+.rest-next span{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rest-next strong{display:block;margin:4px 0 2px;font-size:18px}
+.rest-next small{font-size:13px;color:var(--muted)}
+.rest-view>.text-button{width:100%;min-height:48px}
 /* Level and medals */
 .level-line{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:6px 12px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .level-line strong{font-size:14px;font-weight:700;color:var(--accent-ink)}
