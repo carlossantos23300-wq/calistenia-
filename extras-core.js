@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 // Pure helpers for the workout extras: timing, gear, lighter or quieter sessions, records and small estimates.
-const runDefaults={auto:true,tap:true,vibrate:true,sound:true,count:false,tempo:3,water:true,breathe:true,motivate:true,warmup:true,quiet:false,headset:false,checkin:true,huge:false,smartRest:true,music:false};
+const runDefaults={auto:true,tap:true,vibrate:true,sound:true,count:false,tempo:3,water:true,breathe:true,motivate:true,warmup:true,quiet:false,headset:false,checkin:true,huge:false,smartRest:true,music:false,mic:false};
 function runPrefs(v={}){if(!v||typeof v!=='object')v={};const out={};for(const [k,d] of Object.entries(runDefaults))out[k]=typeof d==='boolean'?(typeof v[k]==='boolean'?v[k]:d):d;out.tempo=[2,3,4].includes(Number(v.tempo))?Number(v.tempo):3;return out}
 const extraDefaults=()=>({checkins:[],tests:[],challenge:null,challenges:[],program:null,duels:[],skills:[]});
 const isJumpy=e=>!!e&&(e.category==='plyometrics'||/jump|hop|skip|burpee|jack|bound|leap|sprint/i.test(e.name||''));

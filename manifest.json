@@ -22,5 +22,51 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Começar o treino de hoje",
+      "short_name": "Treinar",
+      "url": "./?acao=treinar",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Treino rápido",
+      "short_name": "Rápido",
+      "url": "./?acao=rapido",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Temporizador de intervalos",
+      "short_name": "Intervalos",
+      "url": "./?acao=intervalos",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Treino surpresa",
+      "short_name": "Surpresa",
+      "url": "./?acao=surpresa",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }

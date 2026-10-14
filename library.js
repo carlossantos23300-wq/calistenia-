@@ -68,7 +68,9 @@ $('randomPlan').onclick=()=>{const plans=FeatureCore.filterPlans(WORKOUT_PLANS,{
 trainingRunner=createTrainingRunner({$,read,write,esc,byId,imageURL,imageFallback,renderDetail,toast,getHistory:features.getHistory,saveRun:features.saveRun,switchPanel:features.switchPanel});
 $('startWorkout').onclick=()=>{const items=$('circuitMode').checked?PlusCore.circuit(selected):selected;if(items.length>60){toast('O circuito tem mais de 60 etapas. Reduz as séries ou os exercícios.');return}$('planEditorDialog').close();trainingRunner.start($('workoutName').value||'O meu treino',items,scheduledId,$('partnerName').value.trim())};
 initAppShell({switchPanel:features.switchPanel});
-renderPlans();renderCatalog();renderSelection();features.switchPanel('today');window.addEventListener('art-style-changed',()=>{renderPlans();renderCatalog();window.dispatchEvent(new Event('training-updated'))});
+renderPlans();renderCatalog();renderSelection();features.switchPanel('today');// Icon shortcuts open straight into an action.
+{const action=new URLSearchParams(location.search).get('acao');if(action){history.replaceState(null,'',location.pathname+location.hash);setTimeout(()=>{const el=id=>document.getElementById(id);if(action==='treinar')el('startNextSession')?.click();else if(action==='surpresa')window.Extras?.openWheel(WORKOUT_PLANS);else if(action==='rapido'||action==='intervalos'){features.switchPanel('tools');const box=el(action==='rapido'?'quickForm':'intervalForm').closest('details');box.open=true;box.scrollIntoView({block:'start'})}},400)}}
+window.addEventListener('art-style-changed',()=>{renderPlans();renderCatalog();window.dispatchEvent(new Event('training-updated'))});
 if('ResizeObserver' in window){const nav=document.querySelector('.view-switch');const measureDock=()=>document.documentElement.style.setProperty('--mobile-nav-height',nav.getBoundingClientRect().height+'px');new ResizeObserver(measureDock).observe(nav);measureDock()}
 
 if('serviceWorker' in navigator&&['http:','https:'].includes(location.protocol))navigator.serviceWorker.register('./sw.js').catch(()=>{});
