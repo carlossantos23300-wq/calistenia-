@@ -1696,3 +1696,129 @@ html[data-motion=quiet] .confetti{display:none}
  #runnerContent>*{animation:run-enter .22s ease-out both}
  @keyframes run-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 }
+/* Drawn exercise figures */
+.exercise-art{display:block;width:100%;height:100%}
+.art-limb{fill:none;stroke:var(--accent-ink);stroke-width:6;stroke-linecap:round}
+.art-far .art-limb{opacity:.42}
+.art-head{fill:var(--accent-ink)}
+.art-prop{fill:none;stroke:var(--muted);stroke-width:3;stroke-linecap:round;opacity:.55}
+.art-prop.is-bar{stroke-width:5;opacity:.8}
+.art-band{stroke:#f7a8c8;stroke-width:2.5;stroke-dasharray:4 3}
+.art-weight{fill:var(--muted)}
+.execution-art{margin:14px 0;padding:10px;border-radius:20px;background:var(--surface);cursor:pointer}
+.execution-art .exercise-art{height:auto;max-height:42vh;aspect-ratio:3/2}
+.execution-media.is-compact .execution-art{margin:0;padding:6px}
+.execution-media.is-compact .execution-art .exercise-art{height:22vh;max-height:none;aspect-ratio:auto}
+@media(max-height:780px){.execution-media.is-compact .execution-art .exercise-art{height:17vh}}
+.exercise-card .photo.is-art,#plansGrid .plan-visual.is-art{display:grid;place-items:center;padding:12px;background:var(--surface)}
+.exercise-card .photo.is-art .exercise-art,#plansGrid .plan-visual.is-art .exercise-art{width:100%;height:100%}
+/* Whole-app looks */
+html[data-preset=natureza]{--bg:#0d1611;--panel:#14211a;--surface:#1c2c23;--surface-2:#26392e}
+html[data-preset=oceano]{--bg:#0a111b;--panel:#111b28;--surface:#182536;--surface-2:#213146}
+html[data-preset=poente]{--bg:#160e0c;--panel:#221614;--surface:#2e1f1b;--surface-2:#3b2924}
+html[data-preset=minimal]{--bg:#f6f6f3;--panel:#ffffff;--surface:#ececE7;--surface-2:#dfdfd8}
+html[data-preset=sol]{--bg:#ffffff;--panel:#ffffff;--surface:#ededed;--surface-2:#dcdcdc;--line:#00000040;--text:#000000;--muted:#2b2b2b}
+html[data-preset=sol] body{background:#fff}
+html[data-preset=sol] :is(.week-pulse,.personal-card,.plan-card,#plansGrid>.plan-card,.exercise-card,.run-target,.rest-next,.pre-gear,.pre-feel button,.finished-mood,.home-shortcut,.evolution-board,.studio-fold,#toolsPanel>.personal-card,.metric,.extra-tile){box-shadow:inset 0 0 0 2px #000}
+html[data-preset=sol] :is(p,span,small,li,label){font-weight:500}
+html[data-preset=sol] .run-big{font-weight:900}
+.style-presets{margin-top:6px!important}
+.preset-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.preset-card{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:8px 8px 10px;border-radius:16px;background:var(--surface);font-size:13px;font-weight:600;color:var(--text)}
+.preset-swatch{display:grid;place-items:center;height:44px;border-radius:11px;background:var(--preset-bg);box-shadow:inset 0 0 0 1px #8885}
+.preset-swatch i{width:24px;height:24px;border-radius:50%;background:var(--preset-accent)}
+.preset-card[aria-pressed=true]{box-shadow:inset 0 0 0 2px var(--accent-ink)}
+/* Extras: home cards, plan tiles, programme, challenge, skills, wheel and monthly test */
+#extraToday{grid-area:extra;display:grid;gap:10px;min-width:0}
+#extraToday:empty{display:none}
+#todayPanel:not(.hidden){grid-template-areas:"heading heading" "resume resume" "session week" "extra extra" "shortcuts shortcuts" "path stats"}
+@media(max-width:1200px){#todayPanel:not(.hidden){grid-template-areas:"heading" "resume" "session" "extra" "shortcuts" "week" "path" "stats"}}
+@media(max-width:800px){#todayPanel:not(.hidden){grid-template-areas:"heading" "week" "resume" "session" "extra" "shortcuts" "stats" "path"}}
+.extra-home{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:var(--card-radius);background:var(--panel)}
+.extra-home>div{flex:1;min-width:0}
+.extra-home strong{display:block;font-size:15px}
+.extra-home small{display:block;font-size:13px;color:var(--muted)}
+.extra-home button{flex:none;min-height:44px;padding:0 18px}
+.extra-icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;background:var(--surface);font-size:22px}
+.extra-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}
+.extra-tile{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:132px;padding:16px;border-radius:22px;background:var(--panel);text-align:left;color:var(--text)}
+.extra-tile .extra-icon{margin-bottom:6px}
+.extra-tile strong{font-size:15px;line-height:1.25}
+.extra-tile small{font-size:12.5px;line-height:1.35;color:var(--muted)}
+.extra-tile:hover{background:var(--surface)}
+#randomPlan{display:none}
+@media(max-width:800px){.extra-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.extra-tile{min-height:122px;padding:14px}}
+.extra-dialog .extra-body>.choice-group{margin-bottom:14px}
+.extra-wide{display:block;width:100%;margin-top:10px}
+.extra-label{margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--accent-ink)}
+.extra-list{list-style:none;margin:8px 0 6px;padding:0}
+.extra-list li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.extra-list li span{color:var(--muted);text-align:right}
+.extra-list b.is-up,.test-metrics b.is-up{color:var(--accent-ink)}
+.extra-list b.is-down,.test-metrics b.is-down{color:#ff8f7a}
+.extra-done{text-align:center;padding:10px 0}
+.extra-big{margin:0;font-size:56px;line-height:1.1}
+.extra-today{margin:14px 0 4px;padding:14px 16px;border-radius:18px;background:var(--panel);text-align:center;font-size:15px}
+.extra-today p{margin:6px 0}
+.program-weeks{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin:4px 0 8px}
+.program-weeks span{display:grid;place-items:center;height:38px;border-radius:12px;background:var(--surface);font-size:14px;font-weight:700;color:var(--muted)}
+.program-weeks span.is-light{box-shadow:inset 0 -3px 0 rgba(var(--accent-rgb),.5)}
+.program-weeks span.is-done{background:var(--accent);color:var(--button-ink)}
+.program-weeks span.is-now{box-shadow:inset 0 0 0 2px var(--accent-ink);color:var(--accent-ink)}
+.challenge-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.challenge-option{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;border-radius:18px;background:var(--panel);text-align:left;color:var(--text)}
+.challenge-option strong{font-size:15px}
+.challenge-option small{font-size:12px;color:var(--muted)}
+.challenge-art{width:100%;height:76px;margin-bottom:6px;border-radius:12px;background:var(--surface);padding:4px}
+.extra-today .challenge-art{height:110px}
+.challenge-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:4px 0 8px}
+.challenge-grid span{display:grid;place-items:center;aspect-ratio:1;border-radius:12px;background:var(--surface);font-size:13px;font-weight:700;color:var(--muted)}
+.challenge-grid .is-done{background:var(--accent);color:var(--button-ink)}
+.challenge-grid .is-today{box-shadow:inset 0 0 0 2px var(--accent-ink);color:var(--accent-ink)}
+.challenge-grid .is-missed{opacity:.45;text-decoration:line-through}
+.challenge-grid .is-rest{background:transparent}
+.skill-list{display:grid;gap:10px}
+.skill-card{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:center;padding:12px;border-radius:20px;background:var(--panel);text-align:left;color:var(--text)}
+.skill-card strong{display:block;font-size:16px}
+.skill-card small{display:block;font-size:12.5px;color:var(--muted)}
+.skill-card progress{width:100%;margin:8px 0 2px}
+.skill-art{height:96px;border-radius:14px;background:var(--surface);padding:6px}
+.skill-steps .skill-art{height:150px;margin:10px 0}
+.skill-title{font-size:24px;margin:8px 0 12px}
+.skill-steps{list-style:none;margin:0;padding:0;counter-reset:step}
+.skill-steps li{margin:0 0 8px;padding:14px 16px;border-radius:18px;background:var(--panel);opacity:.55}
+.skill-steps li.is-now,.skill-steps li.is-done{opacity:1}
+.skill-steps li.is-now{box-shadow:inset 0 0 0 2px var(--accent-ink)}
+.skill-steps strong{display:block;font-size:15px}
+.skill-steps small{display:block;font-size:13px;color:var(--muted)}
+.skill-actions{display:grid;grid-template-columns:3fr 2fr;gap:8px}
+.wheel{position:relative;width:min(78vw,320px);margin:6px auto 14px}
+.wheel svg{display:block;width:100%;height:auto}
+.wheel-slice{fill:var(--accent)}
+.wheel-slice.is-alt{fill:var(--surface-2)}
+.wheel-text{font-size:8.5px;font-weight:700;fill:var(--text)}
+.wheel-slice:not(.is-alt)+.wheel-text{fill:var(--button-ink)}
+.wheel-hub{fill:var(--bg);stroke:var(--accent-ink);stroke-width:3}
+.wheel-pin{position:absolute;left:50%;top:-6px;z-index:1;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:22px solid var(--text);transform:translateX(-50%)}
+.wheel-result{min-height:44px;text-align:center;font-size:16px}
+.test-card h3{margin:4px 0 8px;font-size:20px}
+.test-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0}
+.test-metrics>div{padding:12px;border-radius:16px;background:var(--surface)}
+.test-metrics small{display:block;font-size:12px;color:var(--muted)}
+.test-metrics strong{display:block;font-size:22px}
+.test-metrics b{display:block;font-size:12px}
+.test-spark{display:block;width:100%;height:30px;margin-top:4px}
+.test-spark polyline{fill:none;stroke:var(--accent-ink);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.test-clock{text-align:center;margin:10px 0}
+.routine-buttons{display:grid;gap:10px;margin:10px 0 16px}
+.routine-buttons button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:64px;padding:12px 16px;text-align:left}
+.routine-buttons small{font-size:12.5px;font-weight:500;color:var(--muted)}
+.interval-presets{margin:8px 0 12px}
+.trend-forecast{margin:4px 0 10px;padding:10px 14px;border-radius:14px;background:rgba(var(--accent-rgb),.1);font-size:14px}
+@media(max-width:800px){
+ .extra-tiles{gap:8px;margin:12px 0}
+ .extra-tile{display:grid;grid-template-columns:40px minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;row-gap:1px;align-items:center;min-height:70px;padding:12px;border-radius:18px}
+ .extra-tile .extra-icon{grid-row:1/3;width:40px;height:40px;margin:0;font-size:20px;border-radius:12px}
+ .extra-tile strong{font-size:13.5px;align-self:end}
+ .extra-tile small{font-size:11.5px;align-self:start;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+}

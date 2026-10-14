@@ -26,7 +26,7 @@ window.initAppShell=function({switchPanel}){
  for(const n of [...discovery.children])if(!n.classList.contains('plan-search'))filters.append(n);
  discovery.append(filters);
  const quick=document.createElement('div');quick.className='studio-categories';quick.setAttribute('aria-label','Categorias de treino');
- for(const [value,labelText] of [['','Todos'],['Casa','Em casa'],['Barra','Na barra'],['Halteres','Halteres'],['Mobilidade','Mobilidade']]){
+ for(const [value,labelText] of [['','Todos'],['Casa','Em casa'],['Barra','Na barra'],['Halteres','Halteres'],['Mobilidade','Mobilidade'],['Temáticos','Temáticos']]){
   const b=document.createElement('button');b.className='chip';b.textContent=labelText;b.dataset.category=value;b.type='button';b.setAttribute('aria-pressed',String(value===$('planGroup').value));
   b.onclick=()=>{$('planGroup').value=value;$('planGroup').dispatchEvent(new Event('change'));};quick.append(b);
  }

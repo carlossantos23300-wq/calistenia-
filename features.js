@@ -31,5 +31,6 @@ const schedule=entries=>{calendar.push(...entries);write('cal_calendar',calendar
 const plus=initPlusTools({...app,switchPanel,getHistory:()=>history,getCalendar:()=>calendar,schedule});
 initWelcome({...app,switchPanel,schedule,getHistory:()=>history,getCalendar:()=>calendar});
 atlas=initTrainingAtlas({...app,switchPanel,getHistory:()=>history});
+initExtras({...app,switchPanel,schedule,getHistory:()=>history,getCalendar:()=>calendar});
 return {switchPanel,saveRun,openSwap,getHistory:()=>history};
 };
