@@ -33,5 +33,6 @@ initWelcome({...app,switchPanel,schedule,getHistory:()=>history,getCalendar:()=>
 atlas=initTrainingAtlas({...app,switchPanel,getHistory:()=>history});
 initExtras({...app,switchPanel,schedule,getHistory:()=>history,getCalendar:()=>calendar});
 initMotivation({...app,switchPanel,getHistory:()=>history});
+initBodyMap({...app,getHistory:()=>history});initPhotos(app);
 return {switchPanel,saveRun,openSwap,getHistory:()=>history};
 };

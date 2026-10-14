@@ -1660,7 +1660,7 @@ html[data-motion=quiet] .confetti{display:none}
 #runSettings label{font-size:14px!important}
 #runSettings label small,.style-home label small{display:block;margin-top:2px;font-size:12px;color:var(--muted);font-weight:400}
 #runSettings select{width:auto;min-height:44px;padding:8px 12px}
-.run-quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 0}
+.run-quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:6px 0 0}.run-quick button{padding:0 6px;font-size:14px}
 .run-quick button[aria-pressed=true]{background:var(--accent);color:var(--button-ink)}
 .pain-actions{display:grid;gap:10px;margin:0 0 16px}
 #painDialog label{display:block;font-size:14px}
@@ -1873,3 +1873,27 @@ html[data-preset=sol] .run-big{font-weight:900}
 .duel-vs{padding:12px 14px;border-radius:16px;background:rgba(var(--accent-rgb),.12)}
 .duel-options .challenge-option{min-height:0}
 #duelDialog label{display:block;margin:0 0 14px;font-size:14px}
+/* 3D body and progress photos */
+.body-stage{display:grid;place-items:center;height:340px;margin:8px 0 4px;border-radius:20px;background:radial-gradient(60% 55% at 50% 45%,rgba(var(--accent-rgb),.12),transparent 70%),var(--surface);overflow:hidden}
+.body-stage canvas{display:block;width:100%!important;height:340px!important;cursor:grab}
+.body-pick{min-height:22px;margin:4px 0 8px;font-size:14px;text-align:center;color:var(--muted)}
+.body-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px}
+.body-list li{display:flex;align-items:center;gap:8px;font-size:13.5px}
+.body-list li span{flex:none;width:12px;height:12px;border-radius:50%;background:var(--accent);opacity:calc(.3 + var(--heat)*.7)}
+.body-list li b{margin-left:auto;font-weight:600;color:var(--muted);font-size:12.5px}
+.body-card h3,.photo-card h3{margin:4px 0 8px;font-size:20px}
+.photo-add{position:relative;display:flex;align-items:center;justify-content:center;width:100%;margin:6px 0 12px;cursor:pointer}
+.photo-add input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.photo-grid figure{margin:0}
+.photo-grid img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;background:var(--surface)}
+.photo-grid figcaption{display:flex;flex-direction:column;font-size:11.5px;color:var(--muted);padding-top:4px}
+.photo-grid .text-button{padding:2px 0;font-size:12px;text-align:left}
+.photo-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.photo-pick label{font-size:13px}
+.photo-slider{position:relative;margin:0 0 14px;border-radius:18px;overflow:hidden;background:var(--surface);aspect-ratio:3/4}
+.photo-slider img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo-before{position:absolute;inset:0}
+.photo-tag{position:absolute;top:10px;padding:4px 10px;border-radius:99px;background:#000a;color:#fff;font-size:12px;font-weight:700}
+.photo-tag.left{left:10px}.photo-tag.right{right:10px}
+.photo-slider input{position:absolute;left:0;right:0;bottom:12px;width:calc(100% - 24px);margin:0 12px;min-height:0;accent-color:var(--accent)}
