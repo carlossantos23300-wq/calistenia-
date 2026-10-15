@@ -21,3 +21,17 @@ assert.deepEqual(P.mergeItems([item('A',1),{...item('B',1),warmup:true},item('A'
 assert.match(P.summaryText({name:'Plano',minutes:20,records:[{id:'A',unit:'reps',reps:10,weight:0},{id:'A',unit:'reps',reps:8,weight:0}],title:()=>'Flexões'}),/Flexões: 10, 8/);
 assert.equal(P.addDays('2026-12-31',1),'2027-01-01');assert(P.cooldown().every(i=>i.unit==='s'&&i.sets===1));
 console.log('PASS: queue edits and undo keep records consistent; totals, comparisons, merging and summaries.');
+// Generated workouts fit the time, avoid jumps when asked and are repeatable with a seed.
+for(const zone of Object.keys(P.zones))for(const minutes of [5,10,20,30]){const a=P.generate({zone,minutes,quiet:true,seed:42});assert(a.length>=2,zone);assert(new Set(a.map(i=>i.id)).size===a.length);assert(P.seconds(a)<=minutes*60*1.05+120,zone+minutes);assert(!a.some(i=>['Burpee','Mountain_Climbers','Freehand_Jump_Squat'].includes(i.id)));assert.deepEqual(a,P.generate({zone,minutes,quiet:true,seed:42}))}
+assert(P.generate({zone:'upper',minutes:30,bar:true,seed:3}).some(i=>P.pools.pull.some(p=>p[0]===i.id)));
+assert.equal(P.ladder('Pushups','reps',5,30).map(i=>i.reps).join(),'1,2,3,4,5');assert.equal(P.ladder('Pushups','reps',3,30,true).map(i=>i.reps).join(),'1,2,3,2,1');assert(P.ladder('Plank','s',30,20,true).length<=60);
+const cards=P.deck();assert.equal(cards.length,52);assert.equal(new Set(cards.map(c=>c.suit+c.label)).size,52);assert.equal(cards.reduce((n,c)=>n+c.reps,0),4*(2+3+4+5+6+7+8+9+10+30+11));assert.equal(P.deck(true).length,26);
+assert.deepEqual(P.daily('2026-10-15'),P.daily('2026-10-15'));assert.equal(P.streak({'2026-10-14':true,'2026-10-13':true},'2026-10-15'),2);assert.equal(P.streak({'2026-10-15':true},'2026-10-15'),1);
+// Calculators.
+assert.equal(P.bmi(70,175),22.9);assert.equal(P.bmiLabel(22.9),'Peso normal');assert.equal(P.bmi(0,175),null);
+const fat=P.navyFat({sex:'m',height:178,waist:85,neck:38});assert(fat>10&&fat<25,String(fat));assert.equal(P.navyFat({sex:'f',height:165,waist:75,neck:32}),null);
+const kcal=P.calories({sex:'m',age:30,height:178,weight:75,activity:1.55});assert.equal(kcal.base,1718);assert.equal(kcal.keep,2662);
+assert.deepEqual(P.protein(75),{low:120,high:165,meal:36});assert.equal(P.water(70,60),2800);assert.equal(P.oneRM(100,5),116.7);
+const hr=P.hrZones(30,60);assert.equal(hr.max,187);assert.equal(hr.zones.length,5);assert.equal(hr.zones[0].from,124);
+assert.deepEqual(P.fromMax(10).map(p=>p.reps),[5,7,8]);assert.equal(P.gtgSet(7),4);
+console.log('PASS: generated workouts, ladders, deck, daily challenge and calculators.');
