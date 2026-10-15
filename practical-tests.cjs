@@ -35,3 +35,16 @@ assert.deepEqual(P.protein(75),{low:120,high:165,meal:36});assert.equal(P.water(
 const hr=P.hrZones(30,60);assert.equal(hr.max,187);assert.equal(hr.zones.length,5);assert.equal(hr.zones[0].from,124);
 assert.deepEqual(P.fromMax(10).map(p=>p.reps),[5,7,8]);assert.equal(P.gtgSet(7),4);
 console.log('PASS: generated workouts, ladders, deck, daily challenge and calculators.');
+// Plans, calendar export, month grid and history numbers.
+{const byId=new Map([['Pushups',{primaryMuscles:['chest']}],['Bodyweight_Squat',{primaryMuscles:['quadriceps']}],['Plank',{primaryMuscles:['abdominals']}],['Pullups',{primaryMuscles:['lats']}]]);
+assert.deepEqual(P.balance([{id:'Pushups',sets:3},{id:'Pullups',sets:2},{id:'Plank',sets:1}],byId),{push:3,pull:2,legs:0,core:1,other:0});
+assert.equal(P.planWarnings([{id:'Pushups',sets:8,reps:10,rest:60}],byId).length,3);assert.equal(P.planWarnings([{id:'Pushups',sets:3,reps:10,rest:60},{id:'Pullups',sets:3,reps:5,rest:60},{id:'Bodyweight_Squat',sets:3,reps:15,rest:60},{id:'Plank',sets:3,reps:30,rest:60,unit:'s'}],byId).length,0);
+assert.match(P.planText('A',[{id:'Pushups',sets:3,reps:10,rest:60,unit:'reps'}],()=>'Flexões'),/1\. Flexões — 3 × 10/);
+global.window={};require('./exercise-data.js');require('./custom-exercises.js');const ids=new Set(window.EXERCISES.map(e=>e.id));for(const s of Object.values(P.splits))for(const [,items] of s.plans)for(const i of items)assert(ids.has(i.id),i.id);for(const list of Object.values(P.pools))for(const [id] of list)assert(ids.has(id),id);for(const i of [...P.express(),...P.cooldown()])assert(ids.has(i.id),i.id);for(const d of P.dailyList)assert(ids.has(d[0]),d[0]);
+const h=[{id:'a',name:'X;Y',date:'2026-10-05T18:00:00',duration:1800,sets:[{id:'Pushups',unit:'reps',reps:10,weight:0},{id:'Pushups',unit:'reps',reps:12,weight:0}]},{id:'b',name:'X',date:'2026-10-13T08:00:00',duration:1200,sets:[{id:'Bodyweight_Squat',unit:'reps',reps:20,weight:0},{id:'Plank',unit:'s',reps:40,weight:0}]}];
+const csv=P.csv(h,id=>id);assert(csv.startsWith('\ufeffData;'));assert(csv.includes('"X;Y"'));assert.equal(csv.split('\r\n').length,5);
+const ics=P.ics([{id:'1',date:'2026-10-20',name:'Pernas, já',items:[]}],7);assert(ics.includes('DTSTART:20261020T070000'));assert(ics.includes(String.raw`Pernas\, já`));assert(ics.includes('TRIGGER:-PT30M'));
+const grid=P.monthGrid(2026,9);assert.equal(grid[0][0].date,'2026-09-28');assert(grid.every(w=>w.length===7));assert(grid.flat().filter(d=>d.inMonth).length===31);
+const r=P.insights(h,{today:'2026-10-15',byId,goal:1});assert.equal(r.total,2);assert.equal(r.thisWeek.workouts,1);assert.equal(r.lastWeek.reps,22);assert.equal(r.consistency,100);assert.equal(r.records.find(x=>x.id==='Pushups').reps,12);assert(r.forgotten.some(f=>f.muscle==='lats'));
+assert.deepEqual(P.targetProgress({exercise:'Pushups',unit:'reps',target:20,created:'2026-10-01T00:00:00'},h),{best:12,done:false,pct:60});}
+console.log('PASS: plan balance and tips, splits and pools use real exercises, spreadsheet and calendar exports, month grid and history numbers.');
