@@ -1929,3 +1929,30 @@ html[data-preset=sol] .run-big{font-weight:900}
 .parks-list a{flex:none;display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:12px;text-decoration:none;font-size:14px;font-weight:600}
 .park-label{background:transparent!important;border:0!important;box-shadow:none!important;font-weight:800;font-size:11px;color:#141815!important}
 .park-label::before{display:none}
+
+/* Photos of a person: small pictures alternate two positions like a short clip */
+.ex-photo{position:relative;overflow:hidden;padding:0!important;background:var(--surface)}
+.ex-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.ex-photo.is-moving img+img{animation:exFlip 2.4s step-end infinite}
+@keyframes exFlip{0%{opacity:0}50%{opacity:1}}
+html[data-motion=quiet] .ex-photo.is-moving img+img{animation:none;opacity:0}
+@media(prefers-reduced-motion:reduce){.ex-photo.is-moving img+img{animation:none;opacity:0}}
+.challenge-art.ex-photo{height:96px}
+.extra-today .challenge-art.ex-photo{height:150px}
+.skill-art.ex-photo{height:120px}
+.skill-steps .skill-art.ex-photo{height:190px}
+.photo-note{margin:8px 2px 0;font-size:13.5px;line-height:1.4;color:var(--text)}
+.photo-credit{margin:4px 2px 0;font-size:11.5px;color:var(--muted)}
+.photo-credit a{color:inherit}
+.execution-media.is-compact .photo-note{margin-top:6px;font-size:12.5px}
+.execution-media.is-compact .photo-credit{font-size:10.5px;margin-top:2px}
+.plan-exercises{padding-left:0;list-style:none;counter-reset:planstep}
+.plan-exercises li{display:grid;grid-template-columns:104px 1fr;gap:12px;align-items:center;counter-increment:planstep}
+.plan-exercises li>div{min-width:0}
+.plan-exercises li>div>.text-button::before{content:counter(planstep) ". ";color:var(--muted)}
+.plan-thumb{display:block;width:104px;height:78px;padding:0;border:0;border-radius:14px;overflow:hidden;background:var(--surface);cursor:pointer}
+.plan-thumb-image{width:100%;height:100%}
+.plan-thumb-image.ex-photo img{object-fit:cover}
+.plan-thumb-image .exercise-art{width:100%;height:100%}
+html[data-images=hide] .plan-thumb{display:none}
+html[data-images=hide] .plan-exercises li{grid-template-columns:1fr}

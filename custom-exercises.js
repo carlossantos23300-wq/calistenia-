@@ -1,5 +1,5 @@
 (function(root){
-// Calisthenics skills missing from the public catalogue. They have drawn figures instead of photos.
+// Calisthenics skills missing from the public catalogue, with photos of real people from free-licence sources.
 const x=(id,name,title,level,category,primary,secondary,pt,en)=>({id,name,force:'push',level,mechanic:'compound',equipment:'body only',primaryMuscles:primary,secondaryMuscles:secondary,instructions:en,category,images:[],custom:true,pt:{title,instructions:pt}});
 const list=[
 x('Pike_Push-Up','Pike Push-Up','Flexão em pique','intermediate','strength',['shoulders'],['triceps'],['Começa em posição de flexão e leva a anca para cima, formando um V invertido.','Mantém as pernas o mais esticadas possível e a cabeça entre os braços.','Dobra os cotovelos e baixa a cabeça em direção ao chão, um pouco à frente das mãos.','Empurra o chão para voltares a esticar os braços.','Para ficar mais difícil, apoia os pés num banco.'],['Start in a push-up position and lift your hips into an inverted V.','Keep your legs as straight as you can and your head between your arms.','Bend your elbows and lower your head towards the floor, just in front of your hands.','Push the floor away to straighten your arms.','To make it harder, put your feet on a bench.']),
@@ -20,6 +20,40 @@ x('Burpee','Burpee','Burpee','intermediate','plyometrics',['quadriceps'],['chest
 x('Wall_Sit','Wall Sit','Cadeira na parede','beginner','strength',['quadriceps'],['glutes'],['Encosta as costas a uma parede.','Desce até as coxas ficarem paralelas ao chão, com os joelhos por cima dos tornozelos.','Mantém as costas encostadas e os pés à largura da anca.','Aguenta o tempo indicado a respirar.','Para facilitar, não desças tanto.'],['Lean your back against a wall.','Slide down until your thighs are parallel to the floor, knees over ankles.','Keep your back on the wall and feet hip-width apart.','Hold for the given time, breathing.','To make it easier, do not go as low.']),
 x('Bear_Crawl','Bear Crawl','Gatinhar de urso','beginner','strength',['shoulders'],['abdominals','quadriceps'],['Põe-te de quatro, com as mãos debaixo dos ombros e os joelhos debaixo da anca.','Levanta os joelhos dois dedos do chão, com as costas direitas.','Avança a mão direita e o pé esquerdo ao mesmo tempo, depois o outro lado.','Dá passos pequenos e mantém os joelhos baixos.','Conta os passos ou o tempo indicado.'],['Get on all fours with hands under shoulders and knees under hips.','Lift your knees two fingers off the floor, back flat.','Move the right hand and left foot forward together, then the other side.','Take small steps and keep your knees low.','Count the steps or the given time.'])
 ];
+// Photos: [paths, credit, note]. Dataset paths reuse the public catalogue; media/ photos are credited in ATTRIBUTION.md.
+const by=(author,license,source)=>({author,license,source});
+const credit={
+ pike:by('Danielflefil','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Pike_Push_Ups.gif'),
+ wall:by('garryknight','CC BY 2.0','https://www.flickr.com/photos/8176740@N05/5657942638'),
+ free:by('Sascha Kohlmann','CC BY-SA 3.0','https://commons.wikimedia.org/wiki/File:Handstand_(142522319).jpeg'),
+ muscle:by('Chris Hunkeler','CC BY-SA 2.0','https://www.flickr.com/photos/14913305@N00/52220047716'),
+ pistol:by('Jgcastor','CC BY-SA 3.0','https://commons.wikimedia.org/wiki/File:Pistol-squat.jpg'),
+ hollow:by('Ex Machina 007','CC BY-SA 3.0','https://commons.wikimedia.org/wiki/File:Hollow_position_.jpg'),
+ rings:by('Tommy Gilligan, West Point','Domínio público','https://commons.wikimedia.org/wiki/File:West_Point_male_gymnast_L-sit.jpg'),
+ lsit:by('Rick McCharles','CC BY 2.0','https://www.flickr.com/photos/71035721@N00/8409521019'),
+ burpee:by('Taco fleur','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Burpee_2_Squat.jpg'),
+ wallsit:by('dennis','CC BY 2.0','https://www.flickr.com/photos/41894190608@N01/4140699165'),
+ bear:by("Brady O'Brien",'CC BY-SA 2.0','https://www.flickr.com/photos/7982661@N05/2537144311')};
+const fullPistol='A foto mostra o pistol completo.';
+const photos={
+ 'Pike_Push-Up':[[1,2,3,4].map(n=>'media/pike-push-up-'+n+'.jpg'),credit.pike],
+ Wall_Handstand:[['media/handstand-wall.jpg'],credit.wall],
+ Chest_To_Wall_Handstand:[['media/handstand-wall.jpg'],credit.wall,'Na foto, o pino é de costas para a parede. Nesta versão ficas com a barriga virada para a parede.'],
+ Freestanding_Handstand:[['media/handstand.jpg'],credit.free],
+ 'Chest_To_Bar_Pull-Up':[['Pullups/0.jpg','Pullups/1.jpg'],null,'Nesta versão puxa mais alto, até o peito tocar na barra.'],
+ Negative_Muscle_Up:[['media/muscle-up-top.jpg'],credit.muscle,'A foto mostra o início: em cima da barra. Depois desce devagar até ficares suspenso.'],
+ Pistol_Squat:[['media/pistol-squat.jpg'],credit.pistol],
+ Box_Pistol_Squat:[['media/pistol-squat.jpg'],credit.pistol,fullPistol+' Nesta versão desces até te sentares num banco.'],
+ Assisted_Pistol_Squat:[['media/pistol-squat.jpg'],credit.pistol,fullPistol+' Nesta versão seguras-te a um apoio com uma mão.'],
+ Hollow_Hold:[['media/hollow-hold.jpg'],credit.hollow,'Pernas mais altas é mais fácil. Quanto mais perto do chão, mais difícil.'],
+ 'Tuck_L-Sit':[['media/l-sit-rings.jpg'],credit.rings,'A foto mostra o L-sit completo. Nesta versão manténs os joelhos junto ao peito.'],
+ 'One_Leg_L-Sit':[['media/l-sit-rings.jpg'],credit.rings,'A foto mostra o L-sit completo. Nesta versão esticas só uma perna.'],
+ 'L-Sit':[['media/l-sit.jpg'],credit.lsit],
+ Dead_Hang:[['Hanging_Pike/0.jpg']],
+ Burpee:[[1,2,3,4,5,6,7].map(n=>'media/burpee-'+n+'.jpg'),credit.burpee],
+ Wall_Sit:[['media/wall-sit.jpg'],credit.wallsit],
+ Bear_Crawl:[['media/bear-crawl.jpg'],credit.bear]};
+for(const e of list){const p=photos[e.id];if(!p)continue;e.images=p[0];if(p[1])e.photoCredit=p[1];if(p[2])e.photoNote=p[2]}
 const force={'Chest_To_Bar_Pull-Up':'pull',Negative_Muscle_Up:'pull',Dead_Hang:'static',Hollow_Hold:'static','Tuck_L-Sit':'static','One_Leg_L-Sit':'static','L-Sit':'static',Wall_Sit:'static',Wall_Handstand:'static',Chest_To_Wall_Handstand:'static',Freestanding_Handstand:'static'};for(const e of list)if(force[e.id])e.force=force[e.id];
 const target=root.EXERCISES||(root.EXERCISES=[]);for(const e of list)if(!target.some(t=>t.id===e.id))target.push(e);
 if(typeof module!=='undefined')module.exports=list;

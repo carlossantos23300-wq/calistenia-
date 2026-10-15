@@ -9,5 +9,7 @@ function prepare(data){return data.map(e=>({...e,equipment:e.equipment||'unknown
 function filter(data,f,favorites=[]){const tokens=normalize(f.q).trim().split(/\s+/).filter(Boolean);return data.filter(e=>tokens.every(t=>e.search.includes(t))&&(!f.muscle||e.primaryMuscles.includes(f.muscle)||e.secondaryMuscles.includes(f.muscle))&&(!f.equipment||e.equipment===f.equipment)&&(!f.level||e.level===f.level)&&(f.quick!=='body'||e.equipment==='body only')&&(f.quick!=='dumbbell'||e.equipment==='dumbbell')&&(f.quick!=='stretching'||e.category==='stretching')&&(f.quick!=='favorites'||favorites.includes(e.id)));}
 const clamp=(v,min,max,fallback)=>Number.isFinite(Number(v))?Math.max(min,Math.min(max,Math.round(Number(v)))):fallback;
 function sanitizeItems(items,ids){if(!Array.isArray(items))return [];const seen=new Set;return items.filter(i=>i&&ids.has(i.id)&&!seen.has(i.id)&&seen.add(i.id)).slice(0,60).map(i=>({id:i.id,sets:clamp(i.sets,1,20,3),reps:clamp(i.reps,1,300,10),rest:clamp(i.rest,0,600,60),unit:i.unit==='s'?'s':'reps'}));}
-const api={muscles,equipment,levels,aliases,normalize,prepare,filter,clamp,sanitizeItems};if(typeof module!=='undefined')module.exports=api;else root.ExerciseCore=api;
+// Catalogue photos live in the public exercise database; photos shipped with the app sit in media/.
+const imageURL=(path='')=>path.startsWith('media/')?path:'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/'+path.split('/').map(encodeURIComponent).join('/');
+const api={muscles,equipment,levels,aliases,normalize,prepare,filter,clamp,sanitizeItems,imageURL};if(typeof module!=='undefined')module.exports=api;else root.ExerciseCore=api;
 })(globalThis);

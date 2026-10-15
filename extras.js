@@ -4,7 +4,7 @@ const {$,read,write,esc,toast,byId,getHistory,getRunner}=app,X=ExtrasCore;
 const state=()=>({...X.extraDefaults(),...read('cal_extra',{})});
 const save=x=>{write('cal_extra',x);window.dispatchEvent(new Event('extra-updated'))};
 const today=()=>FeatureCore.localDate(),title=id=>byId.get(id)?.title||id,amount=(n,unit)=>n+(unit==='s'?' s':' repetições');
-const art=(id,cls='extra-art')=>window.ExerciseArt?.has(id)?`<div class="${cls}">${ExerciseArt.svg(id,{label:esc(title(id))})}</div>`:'';
+const art=(id,cls='extra-art')=>window.ExecutionMedia?ExecutionMedia.thumb(byId.get(id),esc,cls):'';
 const quiet=()=>document.documentElement.dataset.motion==='quiet'||matchMedia('(prefers-reduced-motion: reduce)').matches;
 function speak(text){try{if(!window.speechSynthesis||localStorage.getItem('cal_ui_voice')==='0')return;const u=new SpeechSynthesisUtterance(text);u.lang='pt-PT';speechSynthesis.speak(u)}catch{}}
 function make(id,heading){const d=document.createElement('dialog');d.id=id;d.className='extra-dialog';d.setAttribute('aria-labelledby',id+'Title');d.innerHTML=`<div class="dialog-top"><h2 id="${id}Title">${heading}</h2><button class="icon-button close-dialog" aria-label="Fechar">×</button></div><div class="extra-body"></div>`;document.body.append(d);return d}
