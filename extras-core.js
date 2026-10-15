@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 // Pure helpers for the workout extras: timing, gear, lighter or quieter sessions, records and small estimates.
-const runDefaults={auto:true,tap:true,vibrate:true,sound:true,count:false,tempo:3,water:true,breathe:true,motivate:true,warmup:true,quiet:false,headset:false,checkin:true,huge:false,smartRest:true,music:false,mic:false,photo:true,ticks:true,repeatAlert:false,notify:false,prep:5,switchRest:0,tone:'beep',volume:2,rate:1};
+const runDefaults={auto:true,tap:true,vibrate:true,sound:true,count:false,tempo:3,water:true,breathe:true,motivate:true,warmup:true,quiet:false,headset:false,checkin:true,huge:false,smartRest:true,music:false,mic:false,photo:true,shake:false,countBeep:false,dim:false,readTip:false,ticks:true,repeatAlert:false,notify:false,prep:5,switchRest:0,tone:'beep',volume:2,rate:1};
 const runChoices={tempo:[2,3,4],prep:[3,5,10],switchRest:[0,15,30,60],tone:['beep','bell','whistle'],volume:[1,2,3],rate:[.8,1,1.2]};
 function runPrefs(v={}){if(!v||typeof v!=='object')v={};const out={};for(const [k,d] of Object.entries(runDefaults)){if(typeof d==='boolean'){out[k]=typeof v[k]==='boolean'?v[k]:d;continue}const raw=typeof d==='number'?Number(v[k]):v[k];out[k]=(runChoices[k]||[d]).includes(raw)?raw:d}return out}
 const extraDefaults=()=>({checkins:[],tests:[],challenge:null,challenges:[],program:null,duels:[],skills:[]});
