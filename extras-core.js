@@ -1,8 +1,9 @@
 (function(root){
 'use strict';
 // Pure helpers for the workout extras: timing, gear, lighter or quieter sessions, records and small estimates.
-const runDefaults={auto:true,tap:true,vibrate:true,sound:true,count:false,tempo:3,water:true,breathe:true,motivate:true,warmup:true,quiet:false,headset:false,checkin:true,huge:false,smartRest:true,music:false,mic:false};
-function runPrefs(v={}){if(!v||typeof v!=='object')v={};const out={};for(const [k,d] of Object.entries(runDefaults))out[k]=typeof d==='boolean'?(typeof v[k]==='boolean'?v[k]:d):d;out.tempo=[2,3,4].includes(Number(v.tempo))?Number(v.tempo):3;return out}
+const runDefaults={auto:true,tap:true,vibrate:true,sound:true,count:false,tempo:3,water:true,breathe:true,motivate:true,warmup:true,quiet:false,headset:false,checkin:true,huge:false,smartRest:true,music:false,mic:false,photo:true,ticks:true,repeatAlert:false,notify:false,prep:5,switchRest:0,tone:'beep',volume:2,rate:1};
+const runChoices={tempo:[2,3,4],prep:[3,5,10],switchRest:[0,15,30,60],tone:['beep','bell','whistle'],volume:[1,2,3],rate:[.8,1,1.2]};
+function runPrefs(v={}){if(!v||typeof v!=='object')v={};const out={};for(const [k,d] of Object.entries(runDefaults)){if(typeof d==='boolean'){out[k]=typeof v[k]==='boolean'?v[k]:d;continue}const raw=typeof d==='number'?Number(v[k]):v[k];out[k]=(runChoices[k]||[d]).includes(raw)?raw:d}return out}
 const extraDefaults=()=>({checkins:[],tests:[],challenge:null,challenges:[],program:null,duels:[],skills:[]});
 const isJumpy=e=>!!e&&(e.category==='plyometrics'||/jump|hop|skip|burpee|jack|bound|leap|sprint/i.test(e.name||''));
 // Seconds of work for one set: holds count their own time, repetitions about three seconds each plus setting up.
