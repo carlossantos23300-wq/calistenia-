@@ -45,5 +45,5 @@ R('tostas-requeijao','Tostas com requeijão e tomate',1,5,[g('Tostas',30),g('Req
 R('frango-desfiado','Frango desfiado para a semana',4,30,[g('Peito de frango',600),g('Cebola',100)],['Coze o frango com a cebola, louro e sal durante 20 minutos.','Desfia com dois garfos.','Usa em sandes, saladas, wraps ou massas.'],'Guarda até 3 dias no frigorífico ou congela.'),
 R('marmita-semana','Marmitas de arroz, carne e legumes',4,40,[g('Arroz',300),g('Carne de peru picada',500),g('Legumes congelados',600),ml('Azeite',20)],['Coze o arroz.','Aloura a carne com cebola e alho.','Salteia os legumes.','Divide por 4 caixas.'],'Guarda 2 no frigorífico e congela as outras.')];
 const list=root.RECIPES||(root.RECIPES=[]);for(const r of more)if(!list.some(x=>x.id===r.id))list.push(r);
-if(typeof module!=='undefined')module.exports=more;
+root.MORE_RECIPES=more;if(typeof module!=='undefined')module.exports=more;
 })(typeof window!=='undefined'?window:globalThis);

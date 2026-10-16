@@ -38,5 +38,5 @@ P('rapido-pernas','Pernas em 12 minutos','Rápidos','Iniciante','12 min','Nada',
 P('tema-viking','Treino viking','Temáticos','Intermédio','35–40 min','Barra e espaço livre','Força bruta para corpo inteiro.','1 a 2 vezes por semana.','Imagina que estás a remar num barco: costas direitas.',[i('Pullups',4,5,120),i('Bodyweight_Squat',4,20,60),i('Pushups',4,15,60),s('Bear_Crawl',3,30,45),s('Plank',3,45,45)]),
 P('tema-lutador','Treino do lutador','Temáticos','Intermédio','25–30 min','Espaço livre','Rapidez e resistência como num combate.','2 vezes por semana.','Fica sempre leve nos pés.',[i('Star_Jump',3,20,30),i('Burpee',3,10,45),i('Pushups',3,12,45),i('Mountain_Climbers',3,20,30),i('Russian_Twist',3,20,30),s('Plank',2,45,30)])];
 const plans=root.WORKOUT_PLANS||(root.WORKOUT_PLANS=[]);for(const p of more)if(!plans.some(x=>x.id===p.id))plans.push(p);
-if(typeof module!=='undefined')module.exports=more;
+root.MORE_PLANS=more;if(typeof module!=='undefined')module.exports=more;
 })(typeof window!=='undefined'?window:globalThis);

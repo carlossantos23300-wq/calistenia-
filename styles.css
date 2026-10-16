@@ -2384,3 +2384,84 @@ html[data-font=xl] .source-note,html[data-font=xl] .meta{font-size:1rem}
 .diary-list em{font-style:normal;font-size:12px;color:var(--muted)}
 .diary-list b{font-size:15px;color:var(--accent-ink)}
 .food-diary .food-chips small{color:var(--muted)}
+
+/* Food diary upgrades */
+.diary-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.diary-head h3{margin:0;text-align:center;text-transform:none}
+.diary-left{margin:6px 0;font-size:14px;color:var(--muted)}
+.diary-left strong{color:var(--text)}
+.macro-bar{display:flex;height:8px;border-radius:99px;overflow:hidden;background:var(--surface);gap:2px;margin:0 0 10px}
+.macro-bar i{display:block;min-width:2px}.macro-bar .is-p{background:#4cc3ff}.macro-bar .is-c{background:#f5c542}.macro-bar .is-f{background:#ff8a4c}
+.diary-warn{margin:6px 0;padding:8px 12px;border-radius:12px;background:#3a2a10;color:#ffd58a;font-size:13.5px}
+.diary-goal{display:grid;gap:6px;margin:8px 0}
+.diary-goal label:first-child{display:flex;align-items:center;gap:8px;font-size:14px}
+.diary-goal select{flex:1;min-height:40px;padding:0 8px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit}
+.diary-ideas{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0;padding:10px 12px;border-radius:14px;background:rgba(var(--accent-rgb),.1);font-size:13.5px}
+.diary-ideas strong{width:100%}
+.diary-ideas button{min-height:36px;padding:0 10px;border-radius:99px;background:var(--surface);color:var(--text);font-size:13px;font-weight:600}
+.diary-meal{margin:12px 0 0}
+.diary-meal-head{display:flex;align-items:center;gap:8px;font-size:14.5px}
+.diary-meal-head strong{flex:1}
+.diary-meal-head span{color:var(--accent-ink);font-weight:700;font-size:13px}
+.diary-meal-head .text-button{min-height:34px;padding:0 6px}
+.diary-edit{display:grid;padding:0;background:none;color:inherit;text-align:left;min-width:0}
+.diary-top,.diary-more{margin:10px 0}
+.diary-top summary,.diary-more summary{min-height:40px;color:var(--muted);font-weight:600;cursor:pointer}
+.diary-top ol{margin:4px 0;padding-left:20px;font-size:14px}
+.my-food-form{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.my-food-form[hidden]{display:none}
+.my-food-form label:first-child,.my-food-form .primary{grid-column:1/-1}
+.fc-meals{margin:6px 0 10px}
+.fc-meals button{font-size:13px}
+.fc-star{font-size:20px;min-height:32px;padding:0 6px}
+.fc-search-row{display:flex;gap:8px}
+.fc-search-row input{flex:1;min-width:0}
+.fc-voice{flex:none;min-width:46px}
+.fc-code-photo{display:inline-flex;align-items:center;min-height:46px;padding:0 14px;border-radius:14px;cursor:pointer}
+
+/* Habits, the day summary and the quizzes */
+#todayPanel:not(.hidden){grid-template-areas:"heading heading" "resume resume" "session week" "extra extra" "daily daily" "habits habits" "weather weather" "shortcuts shortcuts" "path stats"}
+@media(max-width:1200px){#todayPanel:not(.hidden){grid-template-areas:"heading" "resume" "session" "extra" "daily" "habits" "weather" "shortcuts" "week" "path" "stats"}}
+@media(max-width:800px){#todayPanel:not(.hidden){grid-template-areas:"heading" "week" "resume" "session" "extra" "daily" "habits" "weather" "shortcuts" "stats" "path"}}
+.habits-home{grid-area:habits;display:grid;gap:10px;min-width:0}
+.habits-home[hidden]{display:none}
+.day-summary{padding:14px 16px;border-radius:22px;background:var(--panel)}
+.day-summary h3{margin:0 0 10px;font-size:16px}
+.day-rings{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.day-ring{display:grid;justify-items:center;gap:2px;padding:10px 4px;border-radius:16px;background:conic-gradient(rgba(var(--accent-rgb),.35) calc(var(--v)*360deg),var(--surface) 0);text-align:center}
+.day-ring b{font-size:20px}
+.day-ring small{font-size:10.5px;color:var(--muted)}
+.day-ring strong{font-size:12px}
+.habits-card{padding:12px 16px;border-radius:22px;background:var(--panel)}
+.habits-card>summary{display:flex;align-items:center;justify-content:space-between;min-height:44px;cursor:pointer}
+.habits-card>summary span{font-size:13px;color:var(--accent-ink);font-weight:700}
+.habits-card h4{margin:14px 0 6px;font-size:14px}
+.habit-list{list-style:none;margin:6px 0;padding:0;display:grid;gap:6px}
+.habit-list li{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:14px;background:var(--surface)}
+.habit-list li.is-done{background:rgba(var(--accent-rgb),.14)}
+.habit-check{flex:1;min-width:0;display:flex;align-items:center;gap:10px;min-height:48px;padding:0;background:none;color:inherit;text-align:left}
+.habit-check b{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:var(--panel);font-size:16px}
+.habit-list li.is-done .habit-check b{background:var(--accent);color:var(--button-ink)}
+.habit-check strong{display:block;font-size:14.5px}
+.habit-check small{display:block;font-size:12px;color:var(--muted)}
+.habit-week{display:flex;gap:3px;flex:none}
+.habit-week i{width:7px;height:7px;border-radius:50%;background:var(--panel)}
+.habit-week i.on{background:var(--accent)}
+.habit-tools{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px}
+.habit-add,.habit-steps,.habit-rhr,.habit-wgoal{margin:8px 0}
+.habit-journal{width:100%;margin-top:6px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit;resize:vertical}
+.habits-card select{min-height:34px;padding:0 6px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit}
+.quiz-q{margin:6px 0}
+.quiz-opts,.quiz-food{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.quiz-opts button,.quiz-food button{min-height:56px;padding:8px;border-radius:14px;background:var(--panel);color:var(--text);font-weight:600}
+.quiz-food button{display:grid;gap:4px;min-height:96px}
+.quiz-food small{color:var(--muted)}
+.quiz-k{font-size:18px;color:var(--accent-ink)}
+.quiz-opts .is-right,.quiz-food .is-right{background:#1f5c2e;color:#d8ffe0}
+.quiz-opts .is-wrong,.quiz-food .is-wrong{background:#5c1f1f;color:#ffd8d8}
+.history-month{margin:16px 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+#historySearch{flex:1 1 220px;min-height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit}
+.week-bars-12{grid-template-columns:repeat(12,1fr)}
+.home-cards summary{min-height:44px;cursor:pointer;font-weight:600}
+#toolFav{margin-left:auto;margin-right:6px;font-size:18px}
+html[data-big=on] button,html[data-big=on] .secondary,html[data-big=on] .primary{min-height:54px;font-size:17px}
