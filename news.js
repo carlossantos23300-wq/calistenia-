@@ -17,7 +17,7 @@ window.PRACTICAL_NEWS_2=function(){const C=window.MORE_CONTENT||{},title=id=>{co
  ['Treino, planos e app',['Superséries: exercícios aos pares','Treino com os teus exercícios favoritos','Aquecimento à medida do treino','Quilos levantados no fim do treino','Dia de descanso ativo no Início','Objetivo mais perto no Início','Filtro “Planos que nunca fiz”','Novo grupo de planos “Rápidos”','Novo grupo de planos “Elásticos”','Novo nível “Avançado” nos filtros','Procurar nos treinos feitos','Histórico separado por meses','Guardar um treino feito como plano','Minutos de treino por semana (12 semanas)','Média de treinos por semana','Jogo: que músculo trabalha?','Jogo: qual tem mais calorias?','Ferramentas favoritas ★','Tema claro de dia e escuro à noite','Botões maiores','Escolher os cartões da página inicial','Guardar a pulsação medida como pulsação em repouso']],
  ['Planos de treino novos',(window.MORE_PLANS||[]).map(p=>p.name+' ('+p.group+', '+p.level+')')],
  ['Receitas novas',(window.MORE_RECIPES||[]).map(r=>r.name)],
- ['Alimentos novos na lista de calorias',F?F.foods.slice(F.firstBatch).map(f=>f.name):[]],
+ ['Alimentos novos na lista de calorias',F?F.foods.slice(F.firstBatch,F.batch3||undefined).map(f=>f.name):[]],
  ['Desafios do dia novos',(C.daily||[]).map(d=>d[3])],
  ['Rotinas novas',Object.values(C.routines||{}).map(r=>r.name+' ('+r.minutes+' min)')],
  ['Movimentos difíceis novos',(C.skills||[]).map(s=>s.title)],
@@ -29,3 +29,17 @@ window.PRACTICAL_NEWS_2=function(){const C=window.MORE_CONTENT||{},title=id=>{co
  ['Exercícios do dia novos',(C.ofDay||[]).map(title)],
  ['Erros comuns e técnica para mais exercícios',['Alongamentos (todos)','Balanços com kettlebell','Peso morto e good morning','Gémeos','Elevações laterais e frontais','Encolhimento de ombros','Extensões de tríceps com kickback','Pontapé para trás de glúteos','Extensões de tríceps','Aberturas (flyes)','Subir ao degrau','Torção russa','Abdominal bicicleta','Dead bug','Pernadas (flutter e tesoura)','Elevação de pernas deitado','Saltos e polichinelos','Saltar à corda','Lagarta','Abertura com elástico e face pull','Elevação de anca','Círculos','Roscas (curls)','Remadas com halteres e polia']],
  ['Dicas novas',C.tips||[]],['Frases novas',C.quotes||[]],['Perguntas frequentes novas',(C.faq||[]).map(f=>f[0])]].filter(([,l])=>l.length)};
+
+// The third batch: tools listed from the tool list, content from the data, names from the corrections.
+window.PRACTICAL_NEWS_3=function(){const C=window.MORE_CONTENT_2||{},F=window.FoodCore,ids=window.MORE_TOOLS_IDS||new Set(),tools=(window.PracticalTools?.list?.()||[]).filter(t=>ids.has(t.id)),A=window.ExerciseCore?.aliases||{},changed=window.NamesPT?.changed||new Set();
+ return [
+ ...[...new Set(tools.map(t=>t.group))].map(g=>['Ferramentas novas: '+g,tools.filter(t=>t.group===g).map(t=>t.icon+' '+t.name+(t.hint?' — '+t.hint:''))]),
+ ['Planos de treino novos',(C.plans||[]).map(p=>p.name+' ('+p.group+', '+p.level+')')],
+ ['Receitas novas',(C.recipes||[]).map(r=>r.name)],
+ ['Alimentos novos na lista de calorias',F&&F.batch3?F.foods.slice(F.batch3).map(f=>f.name):[]],
+ ['Desafios do dia novos',(C.daily||[]).map(d=>d[3])],
+ ['Rotinas novas',Object.values(C.routines||{}).map(r=>r.name+' ('+r.minutes+' min)')],
+ ['Movimentos difíceis novos',(C.skills||[]).map(s=>s.title)],
+ ['Desafios de 30 dias novos',Object.values(C.challenges||{}).map(c=>c.title)],
+ ['Dicas novas',C.tips||[]],['Frases novas',C.quotes||[]],['Perguntas frequentes novas',(C.faq||[]).map(f=>f[0])],
+ ['Nomes de exercícios corrigidos para português de Portugal',[...changed].map(n=>A[n]).filter(Boolean).sort((a,b)=>a.localeCompare(b,'pt'))]].filter(([,l])=>l.length)};

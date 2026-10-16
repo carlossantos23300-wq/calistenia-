@@ -1,7 +1,7 @@
 // Food: camera guesses map to foods, amounts scale per 100 g, products from Open Food Facts are read safely.
-const assert=require('node:assert/strict'),F=require('./food-data.js');
+const assert=require('node:assert/strict'),F=require('./food-data.js');global.FoodCore=F;const added=require('./more-foods.js');assert(added.length>=250&&F.foods.length===F.batch3+added.length);
 assert.equal(new Set(F.foods.map(f=>f.id)).size,F.foods.length);
-for(const f of F.foods){assert(f.kcal>=0&&f.kcal<=900,f.id);assert(f.p>=0&&f.c>=0&&f.f>=0,f.id);assert(f.por>0,f.id);if(!['vinho','cerveja','sangria','gin-tonico'].includes(f.id))assert(Math.abs(f.p*4+f.c*4+f.f*9-f.kcal)<=Math.max(60,f.kcal*.35),'energy check '+f.id)}
+for(const f of F.foods){assert(f.kcal>=0&&f.kcal<=900,f.id);assert(f.p>=0&&f.c>=0&&f.f>=0,f.id);assert(f.por>0,f.id);if(!['vinho','cerveja','sangria','gin-tonico','vinho-branco','espumante','whisky','porto','sidra'].includes(f.id))assert(Math.abs(f.p*4+f.c*4+f.f*9-f.kcal)<=Math.max(60,f.kcal*.35),'energy check '+f.id)}
 const top=cats=>F.match(cats)[0]?.food.id;
 assert.equal(top([{label:'Neapolitan pizza',score:.86,src:'dish'}]),'pizza');
 assert.equal(top([{label:'Burrito',score:.04,src:'dish'},{label:'banana',score:.11,src:'object'}]),'banana');
