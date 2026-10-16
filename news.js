@@ -43,3 +43,6 @@ window.PRACTICAL_NEWS_3=function(){const C=window.MORE_CONTENT_2||{},F=window.Fo
  ['Desafios de 30 dias novos',Object.values(C.challenges||{}).map(c=>c.title)],
  ['Dicas novas',C.tips||[]],['Frases novas',C.quotes||[]],['Perguntas frequentes novas',(C.faq||[]).map(f=>f[0])],
  ['Nomes de exercícios corrigidos para português de Portugal',[...changed].map(n=>A[n]).filter(Boolean).sort((a,b)=>a.localeCompare(b,'pt'))]].filter(([,l])=>l.length)};
+
+// The Arena: games played with the body in front of the camera.
+window.PRACTICAL_NEWS_4=()=>[['🎮 Arena: treina a jogar com a câmara',['Caça-alvos: rebenta as bolas com as mãos, apanha as douradas e foge das bombas','Esquiva: agacha, foge para o lado, levanta e abre os braços para passar os obstáculos','Boxe ao ritmo: murros nos alvos quando o anel fecha, ao ritmo da música','A câmara vê o teu corpo e desenha o teu esqueleto em néon','Música feita na hora para cada jogo','Combos, pontos a dobrar e efeitos de explosão','Contagem 3, 2, 1 ao ritmo da batida','A app espera até te ver bem antes de começar','Foto de ação tirada no teu melhor momento','Cartão com a pontuação e a foto para partilhar','Recordes e placar com o nome de cada jogador','Conta como treino no histórico, com as calorias','Cartão da Arena na página inicial','As imagens ficam só no teu telemóvel']]];
