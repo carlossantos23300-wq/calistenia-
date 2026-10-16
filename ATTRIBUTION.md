@@ -29,3 +29,11 @@ Fotos de pessoas reais para exercícios que não existem no catálogo. Foram red
 - muscle-up-top.jpg: Chris Hunkeler, CC BY-SA 2.0, https://www.flickr.com/photos/14913305@N00/52220047716
 
 O autor e a licença de cada foto também aparecem por baixo da imagem na app.
+
+## Calorias pela câmara
+
+- Reconhecimento de pratos: modelo Google AIY Vision Food V1 (2023 pratos), licença Apache 2.0, https://www.kaggle.com/models/google/aiy (ficheiro models/food.tflite). Corre no próprio telemóvel; as fotos não saem do telemóvel.
+- Reconhecimento de objetos (frutas e outros alimentos): EfficientNet-Lite0 do MediaPipe (Google), licença Apache 2.0, descarregado de storage.googleapis.com/mediapipe-models.
+- Produtos pelo código de barras: Open Food Facts (https://world.openfoodfacts.org), base de dados aberta com licença ODbL. Só o número do código é enviado.
+- Leitor de códigos de barras de reserva: ZXing (@zxing/library), licença Apache 2.0, carregado de cdn.jsdelivr.net quando o telemóvel não tem leitor próprio.
+- Os valores nutricionais dos alimentos e pratos da app são aproximados (por 100 g) e servem só como estimativa.

@@ -2349,3 +2349,38 @@ html[data-font=xl] .source-note,html[data-font=xl] .meta{font-size:1rem}
 .more-backup h4{margin:6px 0}
 .more-backup .secondary{width:100%;min-height:48px}
 #skipWarmup{white-space:nowrap}
+
+/* Calories with the camera */
+.food-tabs{margin:4px 0 14px}
+.food-tabs button{flex:1 1 auto}
+.food-tabs button[aria-pressed=true]{background:var(--accent);color:var(--button-ink)}
+.fc-shoot{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin:0 0 12px}
+.fc-shoot label{display:flex;align-items:center;justify-content:center;min-height:58px;border-radius:16px;font-weight:700;cursor:pointer;text-align:center}
+.fc-preview{display:block;width:100%;max-height:260px;margin:0 0 12px;border-radius:18px;object-fit:cover;background:var(--surface)}
+.fc-picks{display:grid;gap:6px;margin:8px 0}
+.fc-pick{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:56px;padding:8px 14px;border-radius:14px;background:var(--panel);color:var(--text);text-align:left}
+.fc-pick strong{display:block;font-size:15px}
+.fc-pick small{display:block;font-size:12.5px;color:var(--muted)}
+.fc-pick b{font-size:22px;color:var(--muted)}
+.fc-search{margin-top:14px}
+.fc-wait{text-align:center}
+.fc-portion h3{margin:4px 0 6px}
+.fc-product-img{float:right;width:84px;height:84px;margin:0 0 8px 10px;border-radius:12px;object-fit:contain;background:#fff}
+.nutri{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:8px;font-size:12px;font-weight:800;color:#fff;vertical-align:middle}
+.nutri-a{background:#038141}.nutri-b{background:#85bb2f}.nutri-c{background:#c9a400}.nutri-d{background:#ee8100}.nutri-e{background:#e63e11}
+.macro-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:10px 0}
+.macro-row span{display:grid;gap:2px;padding:8px 10px;border-radius:12px;background:var(--surface);font-size:12.5px;color:var(--muted)}
+.macro-row b{font-size:16px;color:var(--text)}
+.macro-row small{font-size:11px}
+.fc-scan{position:relative;overflow:hidden;border-radius:18px;background:#000;aspect-ratio:4/3}
+.fc-scan video{width:100%;height:100%;object-fit:cover}
+.fc-frame{position:absolute;left:12%;right:12%;top:32%;bottom:32%;border:3px solid var(--accent);border-radius:14px;box-shadow:0 0 0 999px #0006}
+.food-cam-open{width:100%;min-height:54px;margin:8px 0}
+.diary-list{list-style:none;margin:10px 0;padding:0;display:grid;gap:6px}
+.diary-list li{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:var(--surface)}
+.diary-list li>span{flex:1;min-width:0;display:grid}
+.diary-list small{font-size:11px;color:var(--muted)}
+.diary-list strong{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.diary-list em{font-style:normal;font-size:12px;color:var(--muted)}
+.diary-list b{font-size:15px;color:var(--accent-ink)}
+.food-diary .food-chips small{color:var(--muted)}

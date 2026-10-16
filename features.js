@@ -50,6 +50,6 @@ atlas=initTrainingAtlas({...app,switchPanel,getHistory:()=>history});
 initExtras({...app,switchPanel,schedule,getHistory:()=>history,getCalendar:()=>calendar});
 initMotivation({...app,switchPanel,getHistory:()=>history});
 initBodyMap({...app,getHistory:()=>history});initPhotos(app);initOutdoors(app);
-const practical=initPractical({...app,switchPanel,schedule,saveRun,getHistory:()=>history,getCalendar:()=>calendar});initOrganize({...app,switchPanel,schedule,getHistory:()=>history});initEveryday({...app,switchPanel,getHistory:()=>history,getCalendar:()=>calendar});
+const practical=initPractical({...app,switchPanel,schedule,saveRun,getHistory:()=>history,getCalendar:()=>calendar});initOrganize({...app,switchPanel,schedule,getHistory:()=>history});initFoodCamera(app);initEveryday({...app,switchPanel,getHistory:()=>history,getCalendar:()=>calendar});
 return {switchPanel,saveRun,openSwap,schedule,getHistory:()=>history};
 };
